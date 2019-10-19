@@ -3,7 +3,7 @@ import React from 'react';
 export default function TeacherLanding() {
   return (
     <div>
-      <h1>Teacher Landing</h1>
+      <h1 className='initial'>Teacher Landing</h1>
     </div>
   );
 }
