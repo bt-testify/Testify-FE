@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 // import ReactDOM from "react-dom";
 import { Route } from 'react-router-dom';
+
 import Header from './components/Header.js';
 import './App.css';
 import Landing from './components/landing/Landing.js';
@@ -14,6 +15,7 @@ function App() {
   return (
     <div className='App'>
       <Header loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
+
       <Route exact path='/' render={props => <Landing {...props} />} />
       <Route path='/sign-up' render={props => <SignUp {...props} />} />
       <Route
