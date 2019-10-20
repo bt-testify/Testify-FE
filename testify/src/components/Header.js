@@ -49,8 +49,8 @@ export default function Header({ loggedIn, setLoggedIn }) {
               <StyledNavLink exact to='/'>
                 Home{' '}
               </StyledNavLink>
-              <StyledNavLink to='/login'>Login </StyledNavLink>
-              <StyledNavLink to='/sign-up'>Sign up </StyledNavLink>
+              <StyledNavLink to='/Login'>Login </StyledNavLink>
+              <StyledNavLink to='/SignUp'>Sign up </StyledNavLink>
             </nav>
           );
         }

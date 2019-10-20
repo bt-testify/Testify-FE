@@ -17,9 +17,9 @@ function App() {
       <Header loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
 
       <Route exact path='/' render={props => <Landing {...props} />} />
-      <Route path='/sign-up' render={props => <SignUp {...props} />} />
+      <Route path='/SignUp' render={props => <SignUp {...props} />} />
       <Route
-        path='/login'
+        path='/Login'
         render={props => <Login {...props} setLoggedIn={setLoggedIn} />}
       />
       <Route path='/Teacher' render={props => <TeacherLanding {...props} />} />
