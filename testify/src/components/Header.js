@@ -29,7 +29,7 @@ export default function Header() {
 
     return (
         <HDiv className='headerDiv'>
-            <StyledLink exact to='/'><h1 className='initial'>Testify</h1></StyledLink>
+            <StyledLink to='/'><h1 className='initial'>Testify</h1></StyledLink>
 
             {(()=>{
             if ( loggedIn === true){
