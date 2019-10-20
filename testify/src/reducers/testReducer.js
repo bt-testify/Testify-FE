@@ -1,5 +1,6 @@
 /* model test obj. */
 export const initialState = {
+  isEditing: false,
   testId: 1,
   creator: 'Mrs. Mathews',
   title: 'Math Test',
