@@ -1,6 +1,16 @@
 export {} from './teacherActions';
-export {} from './testActions';
+
 export {} from './studentActions';
+export {
+  addQuestion,
+  removeQuestion,
+  setTestTaker,
+  setTitle,
+  ADD_QUESTION,
+  REMOVE_QUESTION,
+  SET_TEST_TAKER,
+  SET_TITLE
+} from './testActions';
 export {
   addOption,
   removeOption,

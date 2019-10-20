@@ -9,11 +9,21 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 //reducers
-import { teacherReducer, studentReducer, testReducer } from './reducers';
+import {
+  teacherReducer,
+  studentReducer,
+  testReducer,
+  questionReducer
+} from './reducers';
 import * as serviceWorker from './serviceWorker';
 
 const store = createStore(
-  combineReducers({ teacherReducer, studentReducer, testReducer }),
+  combineReducers({
+    teacherReducer,
+    studentReducer,
+    testReducer,
+    questionReducer
+  }),
   applyMiddleware(thunk, logger)
 );
 

@@ -1,3 +1,9 @@
+import {
+  SET_TITLE,
+  SET_TEST_TAKER,
+  ADD_QUESTION,
+  REMOVE_QUESTION
+} from '../actions';
 /* model test obj. */
 export const initialState = {
   isEditing: false,
@@ -32,6 +38,19 @@ export const initialState = {
 
 export const testReducer = (state = initialState, action) => {
   switch (action.type) {
+    /* case SET_TITLE:
+      return {
+        ...state,
+        title: state.title
+      };
+
+    case SET_TEST_TAKER:
+      alert('SETTING TEST TAKER');
+    case ADD_QUESTION:
+      alert('ADDING QUESTION');
+    case REMOVE_QUESTION:
+      alert('REMOVING QUESTION'); */
+
     default:
       return state;
   }

@@ -13,12 +13,12 @@ function Question(props) {
 
 const mapStateToProps = state => {
   return {
-    isEditing: state.isEditing,
-    questionId: state.questionId,
-    question: state.question,
-    type: state.type,
-    options: state.options,
-    answer: state.answer
+    isEditing: state.questionReducer.isEditing,
+    questionId: state.questionReducer.questionId,
+    question: state.questionReducer.question,
+    type: state.questionReducer.type,
+    options: state.questionReducer.options,
+    answer: state.questionReducer.answer
   };
 };
 
