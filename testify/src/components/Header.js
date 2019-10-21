@@ -34,7 +34,7 @@ export default function Header({ loggedIn, setLoggedIn }) {
       {(() => {
         if (loggedIn === true) {
           return (
-            <nav>
+            <nav className='loggedIn'>
               <StyledNavLink exact to='/'>
                 Home{' '}
               </StyledNavLink>
@@ -45,7 +45,7 @@ export default function Header({ loggedIn, setLoggedIn }) {
           );
         } else if (loggedIn === false) {
           return (
-            <nav>
+            <nav className='notLoggedIn'>
               <StyledNavLink exact to='/'>
                 Home{' '}
               </StyledNavLink>
@@ -59,7 +59,7 @@ export default function Header({ loggedIn, setLoggedIn }) {
       <div>
         <button
           onClick={() => {
-            if (loggedIn) {
+            if (loggedIn) { 
               setLoggedIn(false);
             } else {
               setLoggedIn(true);
