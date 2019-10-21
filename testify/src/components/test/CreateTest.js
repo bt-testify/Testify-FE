@@ -10,6 +10,7 @@ import {
 } from '../../actions';
 import QuestionType from './QuesitonType';
 import CreateQuestion from './CreateQuestion';
+import EditQuestion from './EditQuestion';
 
 function CreateTest(props) {
   const { title, questions, setTitle, addQuestion, removeQuestion } = props;
