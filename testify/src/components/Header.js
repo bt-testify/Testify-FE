@@ -26,6 +26,7 @@ export default function Header({ loggedIn, setLoggedIn }) {
   `;
 
   return (
+    <>
     <HDiv className='headerDiv'>
       <StyledLink to='/'>
         <h1 className='initial'>Testify</h1>
@@ -56,20 +57,19 @@ export default function Header({ loggedIn, setLoggedIn }) {
         }
       })()}
 
-      <div>
-        <button
-          onClick={() => {
-            if (loggedIn) { 
-              setLoggedIn(false);
-            } else {
-              setLoggedIn(true);
-            }
-          }}
-        >
-          Logged In: {`${loggedIn}`}
-        </button>
-      </div>
     </HDiv>
+    <div>
+      <button
+        onClick={() => {
+          if (loggedIn) { 
+            setLoggedIn(false);
+          } else {
+            setLoggedIn(true);
+          }
+        }}>Logged In: {`${loggedIn}`}
+      </button>
+    </div>
+    </>
   );
 }
 

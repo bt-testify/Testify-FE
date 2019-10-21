@@ -22,6 +22,7 @@ import '../test.css';
 //     email:email
 //     password:password
 //     isTeacher: true;
+//     classes: [ [{student},{student},{student}], [{student},{student},{student}], [{student},{student},{student}] ]
 //     students: [studentuserid, studentuserid, studentuserid]
 //     testBank: [{test}, {test}, {test}]
 // }
@@ -32,17 +33,51 @@ import '../test.css';
 //     password:password
 //     isTeacher: false;
 //     teacherID: teacherID;
+//     class:class
 //     grade:grade
 //     assignedTests: [{test}, {test}, {test}]
 //     completedTests: [{test}, {test}, {test}]
 // }
 
+//notes: search for teacher- maybe only display one to select if you type a name that matches a teacher? 
+//that way it doesnt show you all teacher on the site
+
+
+
 const SignUpForm = ({values, touched, errors, status}) => {
     const [user, setUser] = useState([]);
+    const [serverUserList, setServerUserList] = useState([]);
+    const [teachers, setTeachers] = useState([]);
 
     useEffect(() => {
       status && setUser(user => [...user, status]);
     }, [status]);
+    useEffect(() => {
+      //axios get all users here, set into local array to search from
+      //use array length to set ID of new user
+      //filter teachers with search to allow student to choose teacher
+      axios
+        .get('https://rickandmortyapi.com/api/character/')
+        .then(response => {
+          // console.log(response);
+        //   console.log(response.data.results);
+          setServerUserList(response.data.results.slice(0));
+
+          setTeachers(serverUserList.filter((usr)=>{
+            return usr.isTeacher === true;
+          }))
+          
+
+          //!!!! temporary code because rick and morty characters to not have an isTeacher bool
+          setTeachers(response.data.results.slice(0));
+          //!!!!
+
+
+        })
+        .catch(error => {
+          console.error('Server Error: ', error);
+        });
+    }, []);
   
     return (
         <div>
@@ -75,11 +110,12 @@ const SignUpForm = ({values, touched, errors, status}) => {
                     if (!values.isTeacher){
                         return ( //<p>Teacher!!</p>
                         <label> Who is your teacher? <br/>
-                            <Field component="select"  name="role">
+                            <Field component="select"  name="teacherID">
                                 <option>Please Choose an Option</option>
-                                <option value="Instructor">Instructor</option>
-                                <option value="Team Lead">Team Lead</option>
-                                <option value="Student">Student</option>
+                                {
+                                    teachers.map((teach)=>{
+                                    return <option value={teach.id}>{teach.name}</option>
+                                })}
                             </Field><br/> <br/>
                             </label>
                             )
@@ -120,6 +156,22 @@ const SignUp = withFormik({
       }),
   
     handleSubmit(values, { setStatus }) {
+    //Appending teacher and student specific vars to form object here before posting to the server
+        if (SignUpForm.serverUserList){
+            values.id = SignUpForm.serverUserList.length; 
+        }
+      if (values.isTeacher)
+      {
+          console.log(values);
+          values.students = [];
+          values.testBank = [];
+      }
+      else {
+          values.class = 0;
+          values.grade = 0;
+          values.assignedTests = [];
+          values.completedTests = [];
+      }
       axios
         // values is our object with all our data on it.
         .post("https://reqres.in/api/users/", values)
@@ -129,6 +181,9 @@ const SignUp = withFormik({
         })
         .catch(err => console.log(err.response));
     }
+//!!!!
+    //set logged in and redirect to teacher or student dashboard here
+//!!!!
   })(SignUpForm);
 
   export default SignUp;
