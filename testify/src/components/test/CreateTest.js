@@ -1,25 +1,42 @@
 import React, { useState, useEffect } from 'react';
-import { useInput } from '../../hooks/useInput';
-import { Route } from 'react-router-dom';
+
 import { connect } from 'react-redux';
 import {
   setTitle,
   setTestTaker,
   addQuestion,
   removeQuestion,
-  setCreator
+  setCreator,
+  save,
+  getTest
 } from '../../actions';
 import QuestionTypeBuilder from './QuesitonTypeBuilder';
 import CreateQuestion from './CreateQuestion';
-import EditQuestion from './EditQuestion';
 
 function CreateTest(props) {
-  const { title, questions, creator, setTitle, setCreator } = props;
+  console.log('CreateTest.js props:', props);
+  const {
+    title,
+    questions,
+    creator,
+    setTitle,
+    setCreator,
+    testObj,
+    save,
+    getTest
+  } = props;
   const [editing, setEditing] = useState(false);
   const [editingId, setEditingId] = useState('');
 
-  
+  useEffect(() => {
+    alert('GET TEST');
+    getTest(testObj.id);
+  }, []);
 
+  const saveTest = e => {
+    e.preventDefault();
+    save(testObj.id, testObj);
+  };
 
   return (
     <div className='create-test-container'>
@@ -49,6 +66,7 @@ function CreateTest(props) {
       <div className='test-preview'>
         <h1>Test Preview</h1>
         <div className='created-test'>
+          <button onClick={saveTest}>Save Changes</button>
           <h2>Title: {title}</h2>
           <h4>Teacher: {creator}</h4>
           <div className='questions'>
@@ -84,11 +102,19 @@ const mapStateToProps = state => {
     title: state.testReducer.title,
     testTaker: state.testReducer.testTaker,
     questions: state.testReducer.questions,
-    question: state.questionReducer
+    testObj: state.testReducer
   };
 };
 
 export default connect(
   mapStateToProps,
-  { setTitle, setTestTaker, addQuestion, removeQuestion, setCreator }
+  {
+    setTitle,
+    setTestTaker,
+    addQuestion,
+    removeQuestion,
+    setCreator,
+    save,
+    getTest
+  }
 )(CreateTest);

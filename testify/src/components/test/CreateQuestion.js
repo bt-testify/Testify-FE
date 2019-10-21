@@ -1,12 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import {
-  addOption,
-  removeOption,
-  setType,
-  addQuestion,
-  save
-} from '../../actions';
+import { setType, addQuestion, save, getTest } from '../../actions';
 
 const initialState = {
   isEditing: false,
@@ -21,19 +15,17 @@ const initialState = {
 
 function CreateQuestion(props) {
   /* console.log('CreateQuestions.js props', props); */
-  const { addQuestion, save, testObj } = props;
-  const testId = props.id;
+  const { addQuestion, save, testObj, getTest } = props;
 
   const [newQuestion, setNewQuestion] = useState(initialState);
   const [choice, setChoice] = useState('');
   /* console.log('CreateQuestion.js choice:', choice);
+  
  
   console.log('CreateQuestion.js addChoice options', newQuestion.options); */
   /* console.log('CreateQuestion.js newQuestion.answer ', newQuestion.options); */
   /* console.log('CreateQuestion.js newQuestion: ', newQuestion); */
-  useEffect(() => {
-    /*  alert('YOU CHOSE AN ANSWER'); */
-  }, [newQuestion.answer]);
+  console.log('CreateQuestion.js testObj:', testObj);
 
   const handleChanges = e => {
     setNewQuestion({
@@ -78,7 +70,7 @@ function CreateQuestion(props) {
       newQuestion.answer !== ''
     ) {
       addQuestion(newQuestion);
-      save(testId, testObj);
+
       setNewQuestion(initialState);
     } else
       alert(
@@ -91,7 +83,7 @@ function CreateQuestion(props) {
       <h3>Create Question</h3>
       <form className='create-question-form' action=''>
         <select name='type' onChangeCapture={handleChanges} type='text'>
-          <option value='Choose a question type'>
+          <option defaultValue value='Choose a question type'>
             Choose a question type:
           </option>
           <option value='multiple-choice'>multiple choice</option>
@@ -152,17 +144,13 @@ function CreateQuestion(props) {
 
 const mapStateToProps = state => {
   return {
-    question: state.questionReducer.question,
-    type: state.questionReducer.type,
-    options: state.questionReducer.options,
-    answer: state.questionReducer.answer,
     questions: state.testReducer.questions,
-    id: state.testReducer.id,
+    testId: state.testReducer.id,
     testObj: state.testReducer
   };
 };
 
 export default connect(
   mapStateToProps,
-  { addOption, removeOption, setType, addQuestion, save }
+  { setType, addQuestion, save, getTest }
 )(CreateQuestion);

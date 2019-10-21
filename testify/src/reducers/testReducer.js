@@ -7,12 +7,14 @@ import {
   SAVE_FAIL,
   SAVE_SUCCESS,
   SAVING,
-
+  GETTING_TEST,
+  TEST_RECEIVED,
+  TEST_NOT_RECEIVED
 } from '../actions';
 /* model test obj. */
 export const initialState = {
   score: 0,
-
+  isSaving: false,
   isEditing: false,
   id: 1,
   creator: 'Mrs. Mathews',
@@ -53,23 +55,45 @@ export const testReducer = (state = initialState, action) => {
         ...state,
         title: action.payload
       };
+      break;
     case SET_CREATOR:
       return {
         ...state,
         creator: action.payload
       };
+      break;
     case SET_TEST_TAKER:
       alert('SETTING TEST TAKER');
+      break;
     case ADD_QUESTION:
       return {
         ...state,
         questions: [...state.questions, action.payload]
       };
+      break;
 
-    
+    case SAVING:
+      return {
+        ...state,
+        isSaving: true
+      };
+      break;
 
+    case SAVE_SUCCESS:
+      console.log(
+        'testReducer.js SAVE_SUCESSS action.payload: ',
+        action.payload
+      );
+      return {
+        ...state,
+        state: action.payload,
+        isSaving: false
+      };
+      break;
 
-
+    case TEST_RECEIVED:
+      return (state = action.payload);
+      break;
 
     default:
       return state;
