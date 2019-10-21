@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useInput } from '../../hooks/useInput';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {
@@ -12,6 +13,8 @@ import CreateQuestion from './CreateQuestion';
 
 function CreateTest(props) {
   const { title, questions, setTitle, addQuestion, removeQuestion } = props;
+  const [editing, setEditing] = useState(false);
+  const [editingId, setEditingId] = useState('');
 
   console.log('CreateTest.js props: ', props);
   return (
@@ -32,16 +35,11 @@ function CreateTest(props) {
                 <div key={question.id} className='preview-question'>
                   <h3>Question: {index + 1}</h3>
                   <p className='question'>{question.question}</p>
-                  {/* QuestionType looks at INCOMING TEST INFO builds a question  */}
+                  {/* QuestionType looks at INCOMING TEST INFO builds the options of a question  */}
                   <QuestionType question={question} />
-                  <Route
-                    path='/Teacher/create-test/:questionId'
-                    compoent={CreateQuestion}
-                  />
+                  {editing && editingId === index && <CreateQuestion />}
                   <button
-                    onClick={() =>
-                      props.history.push(`/Teacher/create-test/${question.id}`)
-                    }
+                    onClick={() => (setEditing(!editing), setEditingId(index))}
                   >
                     Edit
                   </button>

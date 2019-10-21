@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { addOption, removeOption, setAnswer, setType } from '../../actions';
 
 function CreateQuestion(props) {
+  const { addOption, removeOption, setAnswer, setType, options } = props;
   console.log('Questions.js props', props);
   return (
     <div>
@@ -32,7 +33,8 @@ const mapStateToProps = state => {
     question: state.questionReducer.question,
     type: state.questionReducer.type,
     options: state.questionReducer.options,
-    answer: state.questionReducer.answer
+    answer: state.questionReducer.answer,
+    questions: state.testReducer.questions
   };
 };
 
