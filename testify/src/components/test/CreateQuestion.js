@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { addOption, removeOption, setType, addQuestion } from '../../actions';
+import {
+  addOption,
+  removeOption,
+  setType,
+  addQuestion,
+  save
+} from '../../actions';
 
 const initialState = {
   isEditing: false,
@@ -11,17 +17,20 @@ const initialState = {
   options: [],
   answer: ''
 };
+/* Creates new questions from USER input. Does not come from reducer state or the server */
 
 function CreateQuestion(props) {
-  /* console.log('Questions.js props', props); */
-  const { addQuestion } = props;
+  console.log('CreateQuestions.js props', props);
+  const { addQuestion, save } = props;
+  const testId = props.id;
+  console.log('CreteQuestion.js testId', testId);
   const [newQuestion, setNewQuestion] = useState(initialState);
   const [choice, setChoice] = useState('');
   /* console.log('CreateQuestion.js choice:', choice);
  
   console.log('CreateQuestion.js addChoice options', newQuestion.options); */
   /* console.log('CreateQuestion.js newQuestion.answer ', newQuestion.options); */
-  console.log('CreateQuestion.js newQuestion: ', newQuestion);
+  /* console.log('CreateQuestion.js newQuestion: ', newQuestion); */
   useEffect(() => {
     /*  alert('YOU CHOSE AN ANSWER'); */
   }, [newQuestion.answer]);
@@ -69,6 +78,7 @@ function CreateQuestion(props) {
       newQuestion.answer !== ''
     ) {
       addQuestion(newQuestion);
+      save(testId);
       setNewQuestion(initialState);
     } else
       alert(
@@ -142,17 +152,16 @@ function CreateQuestion(props) {
 
 const mapStateToProps = state => {
   return {
-    isEditing: state.questionReducer.isEditing,
-    id: state.questionReducer.questionId,
     question: state.questionReducer.question,
     type: state.questionReducer.type,
     options: state.questionReducer.options,
     answer: state.questionReducer.answer,
-    questions: state.testReducer.questions
+    questions: state.testReducer.questions,
+    id: state.testReducer.id
   };
 };
 
 export default connect(
   mapStateToProps,
-  { addOption, removeOption, setType, addQuestion }
+  { addOption, removeOption, setType, addQuestion, save }
 )(CreateQuestion);

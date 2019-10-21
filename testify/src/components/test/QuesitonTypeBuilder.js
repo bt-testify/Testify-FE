@@ -1,6 +1,7 @@
 import React from 'react';
 
-export default function QuesitonType({ question }) {
+/* Question type renders  */
+export default function QuesitonTypeBuilder({ question }) {
   if (question.type === 'multiple-choice') {
     return (
       <ul className='question-multiple-choice'>

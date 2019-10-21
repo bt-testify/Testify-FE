@@ -9,24 +9,15 @@ import {
   removeQuestion,
   setCreator
 } from '../../actions';
-import QuestionType from './QuesitonType';
+import QuestionTypeBuilder from './QuesitonTypeBuilder';
 import CreateQuestion from './CreateQuestion';
 import EditQuestion from './EditQuestion';
 
 function CreateTest(props) {
-  const {
-    title,
-    questions,
-    creator,
-    setTitle,
-    setCreator,
-    addQuestion,
-    removeQuestion
-  } = props;
+  const { title, questions, creator, setTitle, setCreator } = props;
   const [editing, setEditing] = useState(false);
   const [editingId, setEditingId] = useState('');
 
-  console.log('CreateTest.js props: ', props);
   return (
     <div className='create-test-container'>
       <div className='creator-forms-container'>
@@ -47,6 +38,7 @@ function CreateTest(props) {
             placeholder='Teacher'
           />
         </form>
+        {/* Creates new questions from USER input. Does not come from reducer state or the server */}
         <CreateQuestion />
       </div>
 
@@ -62,9 +54,9 @@ function CreateTest(props) {
                 <div key={question.id} className='preview-question'>
                   <h3>Question: {index + 1}</h3>
                   <p className='question'>{question.question}</p>
-                  {/* QuestionType looks at INCOMING TEST INFO from question type dropdown
-                   and then builds the options of a question base on it's type  */}
-                  <QuestionType question={question} />
+                  {/* QuestionType looks at INCOMING TEST INFO (eventually from server), analyzes the question data  */}
+                  <QuestionTypeBuilder question={question} />
+                  {/* For editing */}
                   {editing && editingId === index && <CreateQuestion />}
                   <button
                     onClick={() => (setEditing(!editing), setEditingId(index))}
@@ -83,7 +75,6 @@ function CreateTest(props) {
 }
 
 const mapStateToProps = state => {
-  console.log('CreateTest.js mSTP state', state);
   return {
     isEditing: state.testReducer.isEditing,
     creator: state.testReducer.creator,
