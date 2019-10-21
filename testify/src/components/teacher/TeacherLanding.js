@@ -1,7 +1,8 @@
 import React from 'react';
 import { NavLink, Route } from 'react-router-dom';
 import CreateTest from '../test/CreateTest';
-import Question from '../test/Question';
+import Question from '../test/CreateQuestion';
+import CreateQuestion from '../test/CreateQuestion';
 
 export default function TeacherLanding() {
   return (
@@ -13,12 +14,9 @@ export default function TeacherLanding() {
       </div>
       <h1 className='initial'>Teacher Landing</h1>
       <Route
+        exact
         path='/Teacher/create-test'
         render={props => <CreateTest {...props} />}
-      />
-      <Route
-        path='/Teacher/create-test'
-        render={props => <Question {...props} />}
       />
     </div>
   );
