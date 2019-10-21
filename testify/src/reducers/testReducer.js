@@ -1,11 +1,14 @@
 import {
   SET_TITLE,
+  SET_CREATOR,
   SET_TEST_TAKER,
   ADD_QUESTION,
   REMOVE_QUESTION
 } from '../actions';
 /* model test obj. */
 export const initialState = {
+  score: 0,
+
   isEditing: false,
   id: 1,
   creator: 'Mrs. Mathews',
@@ -14,6 +17,7 @@ export const initialState = {
   questions: [
     {
       id: 1,
+      correct: false,
       question: "What's 6X6 ?",
       type: 'multiple-choice',
       options: [36, 34, 26, 52],
@@ -21,6 +25,7 @@ export const initialState = {
     },
     {
       id: 2,
+      correct: false,
       question: 'True or False, 6X6=36?',
       type: 'true-false',
       options: ['T', 'F'],
@@ -28,6 +33,7 @@ export const initialState = {
     },
     {
       id: 3,
+      correct: false,
       question: 'What is the order of operations?',
       type: 'short-answer',
       options: 'n/a',
@@ -41,13 +47,21 @@ export const testReducer = (state = initialState, action) => {
     case SET_TITLE:
       return {
         ...state,
-        title: state.title
+        title: action.payload
       };
-
+    case SET_CREATOR:
+      return {
+        ...state,
+        creator: action.payload
+      };
     case SET_TEST_TAKER:
       alert('SETTING TEST TAKER');
     case ADD_QUESTION:
-      alert('ADDING QUESTION');
+      return {
+        ...state,
+        questions: [...state.questions, action.payload]
+      };
+
     case REMOVE_QUESTION:
       alert('REMOVING QUESTION');
 

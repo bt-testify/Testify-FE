@@ -6,10 +6,12 @@ export {
   removeQuestion,
   setTestTaker,
   setTitle,
+  setCreator,
   ADD_QUESTION,
   REMOVE_QUESTION,
   SET_TEST_TAKER,
-  SET_TITLE
+  SET_TITLE,
+  SET_CREATOR
 } from './testActions';
 export {
   addOption,

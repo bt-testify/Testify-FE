@@ -14,8 +14,13 @@ export const SET_TITLE = 'SET_TITLE';
 export const setTitle = title => {
   return { type: SET_TITLE, payload: title };
 };
-export const ADD_QUESTION = 'ADD_QUESTION';
 
+export const SET_CREATOR = 'SET_CREATOR';
+export const setCreator = creator => {
+  return { type: SET_CREATOR, payload: creator };
+};
+
+export const ADD_QUESTION = 'ADD_QUESTION';
 export const addQuestion = question => {
   return { type: ADD_QUESTION, payload: question };
 };
