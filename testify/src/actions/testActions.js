@@ -45,10 +45,13 @@ export const SAVING = 'SAVING';
 export const SAVE_SUCCESS = 'SAVE_SUCCESS';
 export const SAVE_FAIL = 'SAVE_FAIL';
 
-export const save = testId => dispatch => {
+export const save = (testId, testObj) => dispatch => {
   dispatch({ type: SAVING });
   axiosWithAuth()
-    .put(`/tests/${testId}`)
-    .then(res => dispatch({ type: SAVE_SUCCESS, payload: res.data }))
+    .put(`/tests/${testId}`, testObj)
+    .then(res => {
+      dispatch({ type: SAVE_SUCCESS, payload: res.data });
+      console.log('testActions.js save res:', res);
+    })
     .catch(err => dispatch({ type: SAVE_FAIL, payload: err.response }));
 };

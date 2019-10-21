@@ -20,10 +20,10 @@ const initialState = {
 /* Creates new questions from USER input. Does not come from reducer state or the server */
 
 function CreateQuestion(props) {
-  console.log('CreateQuestions.js props', props);
-  const { addQuestion, save } = props;
+  /* console.log('CreateQuestions.js props', props); */
+  const { addQuestion, save, testObj } = props;
   const testId = props.id;
-  console.log('CreteQuestion.js testId', testId);
+
   const [newQuestion, setNewQuestion] = useState(initialState);
   const [choice, setChoice] = useState('');
   /* console.log('CreateQuestion.js choice:', choice);
@@ -78,7 +78,7 @@ function CreateQuestion(props) {
       newQuestion.answer !== ''
     ) {
       addQuestion(newQuestion);
-      save(testId);
+      save(testId, testObj);
       setNewQuestion(initialState);
     } else
       alert(
@@ -157,7 +157,8 @@ const mapStateToProps = state => {
     options: state.questionReducer.options,
     answer: state.questionReducer.answer,
     questions: state.testReducer.questions,
-    id: state.testReducer.id
+    id: state.testReducer.id,
+    testObj: state.testReducer
   };
 };
 

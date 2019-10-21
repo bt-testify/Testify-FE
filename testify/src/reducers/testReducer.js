@@ -3,7 +3,11 @@ import {
   SET_CREATOR,
   SET_TEST_TAKER,
   ADD_QUESTION,
-  REMOVE_QUESTION
+  REMOVE_QUESTION,
+  SAVE_FAIL,
+  SAVE_SUCCESS,
+  SAVING,
+
 } from '../actions';
 /* model test obj. */
 export const initialState = {
@@ -62,8 +66,10 @@ export const testReducer = (state = initialState, action) => {
         questions: [...state.questions, action.payload]
       };
 
-    case REMOVE_QUESTION:
-      alert('REMOVING QUESTION');
+    
+
+
+
 
     default:
       return state;

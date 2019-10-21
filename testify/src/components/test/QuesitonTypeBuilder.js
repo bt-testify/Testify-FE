@@ -1,6 +1,8 @@
 import React from 'react';
 
-/* Question type renders  */
+/* QuestionTypeBuilder  looks at INCOMING TEST INFO (eventually from server), analyzes the question data
+  it will buidld the question based on the type of data. 
+*/
 export default function QuesitonTypeBuilder({ question }) {
   if (question.type === 'multiple-choice') {
     return (
