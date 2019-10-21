@@ -33,6 +33,7 @@ import '../test.css';
 //     password:password
 //     isTeacher: false;
 //     teacherID: teacherID;
+//     teacherName: teacherName;
 //     class:class
 //     grade:grade
 //     assignedTests: [{test}, {test}, {test}]
@@ -48,6 +49,9 @@ const SignUpForm = ({values, touched, errors, status}) => {
     const [user, setUser] = useState([]);
     const [serverUserList, setServerUserList] = useState([]);
     const [teachers, setTeachers] = useState([]);
+
+    const [searchTerm, setSearchTerm] = useState("");
+    const [searchResults, setSearchResults] = useState([]);
 
     useEffect(() => {
       status && setUser(user => [...user, status]);
@@ -78,7 +82,27 @@ const SignUpForm = ({values, touched, errors, status}) => {
           console.error('Server Error: ', error);
         });
     }, []);
+
+    //Teacher search form code. Listens for text inputted into search box, then filters teacher array for names that match.
+    //Names that match get displayed in the 'please choose one' dropdown, and the chosen one's id is added to the student object
+    const handleChange = event => {
+        setSearchTerm(event.target.value);
+    };
+
+    useEffect(() => {
+      if (searchTerm !== ""){
+       const results = teachers.filter(char =>
+         char.name.toLowerCase().includes(searchTerm)
+       );
+       setSearchResults(results);
+     }
+     else{
+       setSearchResults([]);
+     }
+     }, [teachers, searchTerm]);
   
+     const dropDownFunc = (teach) => {}
+
     return (
         <div>
             <h1 className='initial'>Sign Up</h1>
@@ -110,18 +134,31 @@ const SignUpForm = ({values, touched, errors, status}) => {
                     if (!values.isTeacher){
                         return ( //<p>Teacher!!</p>
                         <label> Who is your teacher? <br/>
+                            <Field className="field" type="text" value={searchTerm} placeholder="Teacher Name" onChange={handleChange}/>
+                            <br/>
                             <Field component="select"  name="teacherID">
                                 <option>Please Choose an Option</option>
                                 {
-                                    teachers.map((teach)=>{
-                                    return <option value={teach.id}>{teach.name}</option>
+                                    searchResults.map((teach)=>{
+                                    return <option value={teach.id} onChange={()=>{console.log(values); 
+                                        values.teacherName = teach.name}}>{teach.name}</option>
                                 })}
                             </Field><br/> <br/>
                             </label>
                             )
                     }
                 })()}
-                
+
+                {(() => {
+                    values.id = serverUserList.length; //this is setting the new user's ID based off the length of the server user list.
+                    if (values.teacherID !== null){
+                        teachers.forEach((teach)=>{
+                            if (teach.id === values.id){
+                                values.teacherName= teach.name; //this sets the teacherName based off of the values.teacherID which is set in the dropdown.
+                            }; //I couldn't easily figure out how to make selecting the dropdown update two values or run an inline function, so I did it here.
+                        })
+                    }
+                })()} 
 
                 <button type="submit">Submit!</button>
             </Form>
@@ -129,10 +166,21 @@ const SignUpForm = ({values, touched, errors, status}) => {
             {/* temp code to display successful object creation */}
             {user.map((mem, index) => (
                 <ul key={index}>
+                <li>id: {mem.id}</li>
                 <li>Name: {mem.name}</li>
                 <li>Email: {mem.email}</li>
                 <li>Password: {mem.password}</li>
                 <li>isTeacher: {mem.isTeacher.toString()}</li>
+                {(() => {
+                    if (!mem.isTeacher){
+                        return <li>Teacher Name: {mem.teacherName}</li>
+                    }
+                })()} 
+                {(() => {
+                    if (!mem.isTeacher){
+                        return <li>Teacher ID: {mem.teacherID}</li>
+                    }
+                })()} 
                 </ul>
             ))}
 
@@ -141,13 +189,15 @@ const SignUpForm = ({values, touched, errors, status}) => {
 }
 
 const SignUp = withFormik({
-    mapPropsToValues({name, email, password, isTeacher, teacherID}) {
+    mapPropsToValues({id, name, email, password, isTeacher, teacherID, teacherName}) {
       return {
+        id: id || null,
         name: name || '',
         email: email || '',
         password: password || '',
         isTeacher: isTeacher || false,
-        teacherID: teacherID || null,
+        teacherID: teacherID || 0,
+        teacherName: teacherName || 'null',
       };
     },
   
@@ -157,12 +207,9 @@ const SignUp = withFormik({
   
     handleSubmit(values, { setStatus }) {
     //Appending teacher and student specific vars to form object here before posting to the server
-        if (SignUpForm.serverUserList){
-            values.id = SignUpForm.serverUserList.length; 
-        }
       if (values.isTeacher)
       {
-          console.log(values);
+        //   console.log(values);
           values.students = [];
           values.testBank = [];
       }
@@ -177,7 +224,7 @@ const SignUp = withFormik({
         .post("https://reqres.in/api/users/", values)
         .then(res => {
           setStatus(res.data);
-          console.log(res);
+          console.log(res.data);
         })
         .catch(err => console.log(err.response));
     }
