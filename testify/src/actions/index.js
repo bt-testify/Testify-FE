@@ -6,10 +6,20 @@ export {
   removeQuestion,
   setTestTaker,
   setTitle,
+  setCreator,
+  save,
+  getTest,
+  GETTING_TEST,
+  TEST_RECEIVED,
+  TEST_NOT_RECEIVED,
+  SAVE_SUCCESS,
+  SAVING,
+  SAVE_FAIL,
   ADD_QUESTION,
   REMOVE_QUESTION,
   SET_TEST_TAKER,
-  SET_TITLE
+  SET_TITLE,
+  SET_CREATOR
 } from './testActions';
 export {
   addOption,

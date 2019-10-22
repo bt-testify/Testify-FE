@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 
 export default function Login(props) {
@@ -7,8 +8,8 @@ export default function Login(props) {
     username: '',
     password: ''
   });
-  const [teacher, setTeacher] = useState(false);
-  console.log(teacher);
+
+  console.log('Login.js credentials: ', credentials);
   const handleChange = e => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
@@ -20,8 +21,9 @@ export default function Login(props) {
       .post('/api/login', credentials)
       .then(res => {
         localStorage.setItem('token', res.data.payload);
-        if (teacher) {
+        if (res.data.user.isTeacher) {
           props.history.push('/Teacher');
+          props.populateUser(res.data.user);
         } else {
           props.history.push('/Student');
         }
@@ -30,8 +32,8 @@ export default function Login(props) {
         console.log('Login.js aWA .post res', res);
       })
       .catch(err => {
-        alert(err.error);
-        console.log('Login.js post err: ', err.response);
+        alert(err.response.data.error);
+        console.log('Login.js post err: ', err);
       });
   };
   /* ==== Will use this for login when server set up ===== */
@@ -39,16 +41,13 @@ export default function Login(props) {
     <div className='login-container initial'>
       <h1>Login</h1>
       <form onSubmit={login}>
-        <input type='text' name='username' onChange={handleChange} />
-        <input type='password' name='password' onChange={handleChange} />
+        <input type='text' name='username' placeholder='Username' onChange={handleChange} />
+        <input type='password' name='password' placeholder='Password' onChange={handleChange} />
         <button type='submit'>Log in</button>
-        <label htmlFor='teacher'>I'm a teacher</label>
-        <input
-          onClick={() => setTeacher(!teacher)}
-          name='teacher'
-          type='checkbox'
-        />
       </form>
+      <span>New here?</span>
+      <br/>
+      <Link to='/SignUp'>Sign up for an account</Link>
     </div>
   );
 }

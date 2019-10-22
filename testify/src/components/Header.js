@@ -3,7 +3,7 @@ import { Link, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import '../test.css';
 
-export default function Header({ loggedIn, setLoggedIn }) {
+export default function Header({ currentUser, populateUser, loggedIn, setLoggedIn }) {
   const HDiv = styled.div`
     text-decoration: none;
   `;
@@ -25,7 +25,163 @@ export default function Header({ loggedIn, setLoggedIn }) {
     }
   `;
 
+
+  let steve = {
+    id: 0,
+    username: 'steve123',
+    name: 'steve',
+    email: 'steve@gmail.com ',
+    password: '123',
+    isTeacher: true,
+    classes: [
+      [{ name: 'sally' }, { name: 'sally' }, { name: 'sally' }],
+      [{ name: 'sally' }, { name: 'sally' }, { name: 'sally' }],
+      [{ name: 'sally' }, { name: 'sally' }, { name: 'sally' }]
+    ],
+    students: [
+      {
+        id: 2,
+        name: 'Sally',
+        email: 'sally@school.com',
+        password: '678',
+        isTeacher: false,
+        teacherName: 'Mrs. Mathews',
+        class: 'Math',
+        grade: '5th'
+      }
+    ],
+    testBank: [
+      {
+        score: 0,
+        isEditing: false,
+        id: 1,
+        creator: 'Mrs. Mathews',
+        title: 'Math Test',
+        testTaker: 'Sally',
+        questions: [
+          {
+            id: 1,
+            correct: false,
+            question: "What's 6X6 ?",
+            type: 'multiple-choice',
+            options: [36, 34, 26, 52],
+            answer: 36
+          },
+          {
+            id: 2,
+            correct: false,
+            question: 'True or False, 6X6=36?',
+            type: 'true-false',
+            options: ['T', 'F'],
+            answer: 'T'
+          },
+          {
+            id: 3,
+            correct: false,
+            question: 'What is the order of operations?',
+            type: 'short-answer',
+            options: 'n/a',
+            answer: 'parentheses, exponents, multiply, divide, add, subtract'
+          }
+        ]
+      }
+    ]
+  };
+  let sally = {
+    id: 2,
+    username: 'sally789',
+    name: 'Sally',
+    email: 'sally@school.com',
+    password: '789',
+    isTeacher: false,
+    teacherName: 'Mrs. Mathews',
+    class: 'Math',
+    grade: '5th',
+    assignedTests: [
+      {
+        score: 0,
+        isEditing: false,
+        id: 1,
+        creator: 'Mrs. Mathews',
+        title: 'Math Test',
+        testTaker: 'Sally',
+        questions: [
+          {
+            id: 1,
+            correct: false,
+            question: "What's 6X6 ?",
+            type: 'multiple-choice',
+            options: [36, 34, 26, 52],
+            answer: 36
+          },
+          {
+            id: 2,
+            correct: false,
+            question: 'True or False, 6X6=36?',
+            type: 'true-false',
+            options: ['T', 'F'],
+            answer: 'T'
+          },
+          {
+            id: 3,
+            correct: false,
+            question: 'What is the order of operations?',
+            type: 'short-answer',
+            options: 'n/a',
+            answer: 'parentheses, exponents, multiply, divide, add, subtract'
+          }
+        ]
+      }
+    ],
+    completedTests: [
+      {
+        score: 0,
+        isEditing: false,
+        id: 1,
+        creator: 'Mrs. Mathews',
+        title: 'Math Test',
+        testTaker: 'Sally',
+        questions: [
+          {
+            id: 1,
+            correct: false,
+            question: "What's 6X6 ?",
+            type: 'multiple-choice',
+            options: [36, 34, 26, 52],
+            answer: 36
+          },
+          {
+            id: 2,
+            correct: false,
+            question: 'True or False, 6X6=36?',
+            type: 'true-false',
+            options: ['T', 'F'],
+            answer: 'T'
+          },
+          {
+            id: 3,
+            correct: false,
+            question: 'What is the order of operations?',
+            type: 'short-answer',
+            options: 'n/a',
+            answer: 'parentheses, exponents, multiply, divide, add, subtract'
+          }
+        ]
+      }
+    ]
+  }
+
+  const logSteveIn = () => {
+    populateUser(steve);
+    setLoggedIn(true);
+  }
+  const logSallyIn = () => {
+    populateUser(sally);
+    setLoggedIn(true);
+  }
+
   return (
+    <>
     <HDiv className='headerDiv'>
       <StyledLink to='/'>
         <h1 className='initial'>Testify</h1>
@@ -50,26 +206,34 @@ export default function Header({ loggedIn, setLoggedIn }) {
                 Home{' '}
               </StyledNavLink>
               <StyledNavLink to='/Login'>Login </StyledNavLink>
-              <StyledNavLink to='/SignUp'>Sign up </StyledNavLink>
             </nav>
           );
         }
       })()}
 
-      <div>
-        <button
-          onClick={() => {
-            if (loggedIn) { 
-              setLoggedIn(false);
-            } else {
-              setLoggedIn(true);
-            }
-          }}
-        >
-          Logged In: {`${loggedIn}`}
-        </button>
-      </div>
     </HDiv>
+    <div>
+      {/* {(() => {if (currentUser !== null){
+        return <h1>{currentUser.name}</h1>
+      }})()} */}
+      <h1>Welcome {currentUser.name}!</h1>
+      <button
+        onClick={() => {
+          if (loggedIn) { 
+            setLoggedIn(false);
+          } else {
+            setLoggedIn(true);
+          }
+        }}>Logged In: {`${loggedIn}`}
+      </button>
+      <button
+        onClick={logSteveIn}>Log Steve In
+      </button>
+      <button
+        onClick={logSallyIn}>Log Sally In
+      </button>
+    </div>
+    </>
   );
 }
 
