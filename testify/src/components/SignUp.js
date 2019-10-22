@@ -249,9 +249,9 @@ const SignUp = withFormik({
     //   console.log(values);
     values.students = [];
     values.testBank = [];
-
-    values.classSubject = 0;
-    values.grade = 0;
+    values.classes = [];
+    values.classSubject = '';
+    values.gpa = 0;
     values.assignedTests = [];
     values.completedTests = [];
 
