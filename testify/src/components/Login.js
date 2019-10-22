@@ -5,8 +5,7 @@ export default function Login(props) {
   /* ==== Will use this for login when server set up ===== */
   const [credentials, setCredentials] = useState({
     username: '',
-    password: '',
-    isTeacher: false
+    password: ''
   });
 
   console.log('Login.js credentials: ', credentials);
@@ -21,7 +20,7 @@ export default function Login(props) {
       .post('/api/login', credentials)
       .then(res => {
         localStorage.setItem('token', res.data.payload);
-        if (credentials.isTeacher) {
+        if (res.data.user.isTeacher) {
           props.history.push('/Teacher');
           props.populateUser(res.data.user);
         } else {
@@ -33,7 +32,7 @@ export default function Login(props) {
       })
       .catch(err => {
         alert(err.response.data.error);
-        console.log('Login.js post err: ', err.response.data.error);
+        console.log('Login.js post err: ', err);
       });
   };
   /* ==== Will use this for login when server set up ===== */
@@ -44,17 +43,6 @@ export default function Login(props) {
         <input type='text' name='username' onChange={handleChange} />
         <input type='password' name='password' onChange={handleChange} />
         <button type='submit'>Log in</button>
-        <label htmlFor='teacher'>I'm a teacher</label>
-        <input
-          onClick={() =>
-            setCredentials({
-              ...credentials,
-              isTeacher: !credentials.isTeacher
-            })
-          }
-          name='teacher'
-          type='checkbox'
-        />
       </form>
     </div>
   );
