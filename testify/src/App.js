@@ -9,6 +9,9 @@ import SignUp from './components/SignUp.js';
 import TeacherLanding from './components/teacher/TeacherLanding.js';
 import StudentLanding from './components/student/StudentLanding.js';
 import Login from './components/Login';
+import CreateTest from './components/test/CreateTest';
+import TestBank from './components/teacher/TestBank';
+import ClassesDashboard from './components/teacher/ClassesDashboard';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -20,7 +23,7 @@ function App() {
   //   if (obj.isTeacher) {
   //     setTeacherUser(obj);
   //   } else setStudentUser(obj);
-  // }; 
+  // };
 
   const populateUser = obj => {
     setCurrentUser(obj);
@@ -28,7 +31,12 @@ function App() {
 
   return (
     <div className='App'>
-      <Header loggedIn={loggedIn} setLoggedIn={setLoggedIn} currentUser={currentUser} populateUser={populateUser} />
+      <Header
+        loggedIn={loggedIn}
+        setLoggedIn={setLoggedIn}
+        currentUser={currentUser}
+        populateUser={populateUser}
+      />
 
       <Route exact path='/' render={props => <Landing {...props} />} />
       <Route path='/SignUp' render={props => <SignUp {...props} />} />
@@ -43,28 +51,66 @@ function App() {
         )}
       />
 
-      {(() => {
-        if (loggedIn === true){ 
-          return <Route
+      {loggedIn && (
+        <div>
+          <Route
             path='/Teacher'
             render={props => (
               // <TeacherLanding {...props} teacherUser={teacherUser} />
-              <TeacherLanding {...props} currentUser={currentUser} loggedIn={loggedIn}/>
+              <TeacherLanding
+                {...props}
+                currentUser={currentUser}
+                loggedIn={loggedIn}
+              />
             )}
           />
-        }
-      })()}
-      {(() => {
-        if (loggedIn === true){
-          return <Route
+          <Route
             path='/Student'
             render={props => (
               // <StudentLanding {...props} studentUser={studentUser} />
-              <StudentLanding {...props} currentUser={currentUser} loggedIn={loggedIn}/>
+              <StudentLanding
+                {...props}
+                currentUser={currentUser}
+                loggedIn={loggedIn}
+              />
             )}
           />
-        }
-      })()}
+
+          <Route
+            exact
+            path='/Teacher/create-test'
+            render={props => (
+              <CreateTest
+                {...props}
+                loggedIn={loggedIn}
+                currentUser={currentUser}
+              />
+            )}
+          />
+          <Route
+            exact
+            path='/Teacher/test-bank'
+            render={props => (
+              <TestBank
+                {...props}
+                loggedIn={loggedIn}
+                currentUser={currentUser}
+              />
+            )}
+          />
+          <Route
+            exact
+            path='/Teacher/create-test'
+            render={props => (
+              <ClassesDashboard
+                {...props}
+                loggedIn={loggedIn}
+                currentUser={currentUser}
+              />
+            )}
+          />
+        </div>
+      )}
     </div>
   );
 }
