@@ -100,8 +100,6 @@ const SignUpForm = ({values, touched, errors, status}) => {
        setSearchResults([]);
      }
      }, [teachers, searchTerm]);
-  
-     const dropDownFunc = (teach) => {}
 
     return (
         <div>
@@ -148,7 +146,7 @@ const SignUpForm = ({values, touched, errors, status}) => {
                             )
                     }
                 })()}
-
+                
                 {(() => {
                     values.id = serverUserList.length; //this is setting the new user's ID based off the length of the server user list.
                     if (values.teacherID !== null){
