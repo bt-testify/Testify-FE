@@ -29,7 +29,7 @@ function CreateTest(props) {
   const [editingId, setEditingId] = useState('');
 
   useEffect(() => {
-    alert('GET TEST');
+    /* alert('GET TEST'); */
     getTest(testObj.id);
   }, []);
 

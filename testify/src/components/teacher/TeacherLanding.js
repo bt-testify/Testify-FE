@@ -4,7 +4,10 @@ import CreateTest from '../test/CreateTest';
 import Question from '../test/CreateQuestion';
 import CreateQuestion from '../test/CreateQuestion';
 
-export default function TeacherLanding() {
+export default function TeacherLanding(props) {
+  const { teacherUser } = props;
+  const { name, username, email } = teacherUser;
+  console.log('TeacherLanding.js props: ', props);
   return (
     <div>
       <div className='teacher-tabs'>
@@ -13,6 +16,10 @@ export default function TeacherLanding() {
         <NavLink to='/Teacher/student-reports'>Student Reports</NavLink>
       </div>
       <h1 className='initial'>Teacher Landing</h1>
+      <div className='user-info'>
+        <p>username: {username}</p>
+        <p>email: {email}</p>
+      </div>
       <Route
         exact
         path='/Teacher/create-test'
