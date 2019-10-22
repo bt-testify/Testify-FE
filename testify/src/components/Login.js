@@ -5,10 +5,11 @@ export default function Login(props) {
   /* ==== Will use this for login when server set up ===== */
   const [credentials, setCredentials] = useState({
     username: '',
-    password: ''
+    password: '',
+    isTeacher: false
   });
-  const [teacher, setTeacher] = useState(false);
-  console.log(teacher);
+
+  console.log('Login.js credentials: ', credentials);
   const handleChange = e => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
@@ -20,8 +21,9 @@ export default function Login(props) {
       .post('/api/login', credentials)
       .then(res => {
         localStorage.setItem('token', res.data.payload);
-        if (teacher) {
+        if (credentials.isTeacher) {
           props.history.push('/Teacher');
+          props.populateUser(res.data.user);
         } else {
           props.history.push('/Student');
         }
@@ -30,8 +32,8 @@ export default function Login(props) {
         console.log('Login.js aWA .post res', res);
       })
       .catch(err => {
-        alert(err.error);
-        console.log('Login.js post err: ', err.response);
+        alert(err.response.data.error);
+        console.log('Login.js post err: ', err.response.data.error);
       });
   };
   /* ==== Will use this for login when server set up ===== */
@@ -44,7 +46,12 @@ export default function Login(props) {
         <button type='submit'>Log in</button>
         <label htmlFor='teacher'>I'm a teacher</label>
         <input
-          onClick={() => setTeacher(!teacher)}
+          onClick={() =>
+            setCredentials({
+              ...credentials,
+              isTeacher: !credentials.isTeacher
+            })
+          }
           name='teacher'
           type='checkbox'
         />
