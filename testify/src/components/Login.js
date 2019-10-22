@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 
 export default function Login(props) {
@@ -41,8 +42,8 @@ export default function Login(props) {
     <div className='login-container initial'>
       <h1>Login</h1>
       <form onSubmit={login}>
-        <input type='text' name='username' onChange={handleChange} />
-        <input type='password' name='password' onChange={handleChange} />
+        <input type='text' name='username' placeholder='Username' onChange={handleChange} />
+        <input type='password' name='password' placeholder='Password' onChange={handleChange} />
         <button type='submit'>Log in</button>
         <label htmlFor='teacher'>I'm a teacher</label>
         <input
@@ -56,6 +57,9 @@ export default function Login(props) {
           type='checkbox'
         />
       </form>
+      <span>New here?</span>
+      <br/>
+      <Link to='/SignUp'>Sign up for an account</Link>
     </div>
   );
 }
