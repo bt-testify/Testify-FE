@@ -23,7 +23,8 @@ function CreateTest(props) {
     setCreator,
     testObj,
     save,
-    getTest
+    getTest,
+    id
   } = props;
   const [editing, setEditing] = useState(false);
   const [editingId, setEditingId] = useState('');
@@ -65,6 +66,7 @@ function CreateTest(props) {
       {/* ======= PREVIEW ========= */}
       <div className='test-preview'>
         <h1>Test Preview</h1>
+        <p>Test id: {id}</p>
         <div className='created-test'>
           <button onClick={saveTest}>Save Changes</button>
           <h2>Title: {title}</h2>
@@ -102,6 +104,7 @@ const mapStateToProps = state => {
     title: state.testReducer.title,
     testTaker: state.testReducer.testTaker,
     questions: state.testReducer.questions,
+    id: state.testReducer.id,
     testObj: state.testReducer
   };
 };
