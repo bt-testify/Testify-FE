@@ -11,7 +11,7 @@ export default function StudentLanding(props) {
         <h1 className='initial'>Student Landing</h1>
         {(() => {
             if(props.loggedIn){
-                if (props.isTeacher){
+                if (props.currentUser.isTeacher){
                     return <AccessDenied {...props}/>
                 }
                 else {

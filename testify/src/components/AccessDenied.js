@@ -5,7 +5,7 @@ export default function AccessDenied(props) {
         <div>
             {(() => {
                 if(props.loggedIn){
-                    if (props.isTeacher){
+                    if (props.currentUser.isTeacher){
                         return <div><h1>Access Denied.</h1>
                         <h2>This page is not accessible by Teachers.</h2></div>
                     }
