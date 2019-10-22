@@ -3,6 +3,7 @@ import { withFormik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
+import { withRouter } from "react-router";
 import '../test.css';
 
 //need to have a checkbox for student/teacher, and if student, then have a searchform or dropdown to select your teacher
@@ -43,7 +44,7 @@ import '../test.css';
 //notes: search for teacher- maybe only display one to select if you type a username that matches a teacher?
 //that way it doesnt show you all teacher on the site
 
-const SignUpForm = ({ values, touched, errors, status }) => {
+const SignUpForm = ({ history, values, touched, errors, status }) => {
   const [user, setUser] = useState([]);
   const [serverUserList, setServerUserList] = useState([]);
   const [teachers, setTeachers] = useState([]);
@@ -51,8 +52,14 @@ const SignUpForm = ({ values, touched, errors, status }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
 
+  // const redirectUser = (string) => {
+  //   history.push(string);
+  // };
+  console.log(history);
+
   useEffect(() => {
     status && setUser(user => [...user, status]);
+    history.push('/Student');
   }, [status]);
   useEffect(() => {
     //axios get all users here, set into local array to search from
@@ -190,6 +197,10 @@ const SignUpForm = ({ values, touched, errors, status }) => {
                         })
                     } */
         })()}
+        {(() => {
+          values.stupidprops = history;
+          // console.log('stupidprops: ', stupidprops);
+        })()}
 
         <button type='submit'>Submit!</button>
       </Form>
@@ -225,7 +236,8 @@ const SignUp = withFormik({
     password,
     isTeacher,
     teacherID,
-    teacherName
+    teacherName,
+    stupidprops,
   }) {
     return {
       username: username || '',
@@ -233,7 +245,8 @@ const SignUp = withFormik({
       password: password || '',
       isTeacher: isTeacher || false,
       teacherID: teacherID || 0,
-      teacherName: teacherName || 'null'
+      teacherName: teacherName || 'null',
+      stupidprops: stupidprops || 'null',
     };
   },
 
@@ -243,10 +256,10 @@ const SignUp = withFormik({
     password: Yup.string().required('Please enter a password')
   }),
 
-  handleSubmit(values, { setStatus }) {
+  handleSubmit( values, { setStatus }) {
     //Appending teacher and student specific vars to form object here before posting to the server
-
-    //   console.log(values);
+    // history.push('/Student');
+    // console.log(props);
     values.students = [];
     values.testBank = [];
 
@@ -255,12 +268,24 @@ const SignUp = withFormik({
     values.assignedTests = [];
     values.completedTests = [];
 
+    let formikProps = values.stupidprops;
+    // console.log(stupidprops);
+    console.log('formikProps:', formikProps);
+    values.stupidprops = null;
+
     axiosWithAuth()
       // values is our object with all our data on it.
       .post('/api/signUp', values)
       .then(res => {
         setStatus(res.data);
         console.log(res.data);
+        formikProps.history.push('/Student');
+        if (res.data.isTeacher){
+          // redirectUser('/Teacher');
+        }
+        else{
+          // redirectUser('/Student');
+        }
       })
       .catch(err => {
         alert(err.response.data.error);
@@ -270,6 +295,7 @@ const SignUp = withFormik({
   //!!!!
   //set logged in and redirect to teacher or student dashboard here
   //!!!!
-})(SignUpForm);
+})(SignUpForm); //, props
 
 export default SignUp;
+
