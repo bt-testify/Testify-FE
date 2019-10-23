@@ -42,18 +42,6 @@ export default function TakeTest(props) {
           ]
         }
 
-    // useEffect(() => {
-    //     axiosWithAuth()
-    //         .get(`/testsByCreator/${name}`)
-    //         .then(res => {
-    //         console.log('TestBank.js res', res);
-    //         setTests(res.data);
-    //         })
-    //         .catch(err => {
-    //         console.log('TestBank.js err', err);
-    //         });
-    //     }, []);
-
     let [currentQuestion, setCurrentQuestion] = useState(0);
     let [answerList, setAnswerList] = useState([]);
     let [isChecked, setIsChecked] = useState([false, false, false, false]);
@@ -104,6 +92,7 @@ export default function TakeTest(props) {
         console.log(answerList.includes(undefined));
         if (answerList.length === dummyTest.questions.length && answerList.includes(undefined) === false){
             console.log('all questions have been answered');
+            
         }
         else(
             console.log('You must answer all questions.')
@@ -172,7 +161,7 @@ export default function TakeTest(props) {
                                         <p>I'm a short-answer!!</p>
                                         <p>{dummyTest.questions[currentQuestion].question}</p>
                                         <form>
-                                            <input type="text" name="gender" onChange={handleChange} placeholder='Enter your answer here.'/>
+                                            <input type="text" name="gender" onChange={handleChange} placeholder={answerList[currentQuestion] || 'Enter your answer here.'}/>
                                         </form>
                                     </div>)
                                 }
