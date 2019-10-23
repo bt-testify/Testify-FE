@@ -1,4 +1,4 @@
-import React, { useEffect }from 'react'
+import React, { useState, useEffect }from 'react'
 import AccessDenied from '../AccessDenied.js';
 import StudentGrades from './StudentGrades.js';
 import PendingTests from './PendingTests.js';
@@ -8,6 +8,20 @@ import { axiosWithAuth } from '../../utils/axiosWithAuth';
 
 export default function StudentLanding(props) {
     const tempTestBank = [{}];
+    const [classData, setClassData] = useState();
+    
+    useEffect(() => {
+        axiosWithAuth()
+            .get(`/getAssignments/${props.currentUser.id}`)
+            .then(res => {
+            console.log('TestBank.js res', res);
+            setClassData(res.data);
+            })
+            .catch(err => {
+            console.log('TestBank.js err', err);
+            });
+        }, []);
+
     useEffect(() => {
         axiosWithAuth()
         .get('/allusers')
@@ -19,6 +33,7 @@ export default function StudentLanding(props) {
           console.error('Server Error: ', error);
         });
     }, [])
+
     return (
         <div>
         <h1 className='initial'>Student Landing</h1>
@@ -32,7 +47,7 @@ export default function StudentLanding(props) {
                         <div>
                         <h2>You are authorized to be here. Render this component</h2>
                         <StudentGrades {...props}/>
-                        <PendingTests {...props}/>
+                        <PendingTests {...props} classData={classData}/>
                         <CompletedTests {...props}/>
                         </div>)
                 }
