@@ -12,6 +12,7 @@ import Login from './components/Login';
 import CreateTest from './components/test/CreateTest';
 import TestBank from './components/teacher/TestBank';
 import ClassesDashboard from './components/teacher/ClassesDashboard';
+import ClassViewer from './components/teacher/ClassViewer';
 import TestViewer from './components/teacher/TestViewer';
 import TakeTest from './components/student/TakeTest.js';
 
@@ -33,7 +34,16 @@ function App() {
       />
 
       <Route exact path='/' render={props => <Landing {...props} />} />
-      <Route path='/SignUp' render={props => <SignUp {...props} populateUser={populateUser} setLoggedIn={setLoggedIn}/>} />
+      <Route
+        path='/SignUp'
+        render={props => (
+          <SignUp
+            {...props}
+            populateUser={populateUser}
+            setLoggedIn={setLoggedIn}
+          />
+        )}
+      />
       <Route
         path='/Login'
         render={props => (
@@ -47,21 +57,41 @@ function App() {
 
       {loggedIn && (
         <div>
+          {/* set this route to correct path if not already done */}
+
+          {/* ========= STUDENT ROUTES =============
+              ========= STUDENT ROUTES =============
+              ========= STUDENT ROUTES =============
+          */}
           <Route
-            path='/Teacher'
+            exact
+            path='/Student'
             render={props => (
-              <TeacherLanding
+              <StudentLanding
                 {...props}
                 currentUser={currentUser}
                 loggedIn={loggedIn}
               />
             )}
           />
-          <Route exact path={'/test-viewer/:id'} component={TestViewer} />
           <Route
-            exact path='/Student'
+            path={`/Student/TakeTest/:testid`}
             render={props => (
-              <StudentLanding
+              <TakeTest
+                {...props}
+                loggedIn={loggedIn}
+                currentUser={currentUser}
+              />
+            )}
+          />
+          {/* ========= TEACHER ROUTES =============
+              ========= TEACHER ROUTES =============
+              ========= TEACHER ROUTES =============
+          */}
+          <Route
+            path='/Teacher'
+            render={props => (
+              <TeacherLanding
                 {...props}
                 currentUser={currentUser}
                 loggedIn={loggedIn}
@@ -91,19 +121,16 @@ function App() {
               />
             )}
           />
-          {/* set this route to correct path if not already done */}
+          <Route exact path={'/test-viewer/:id'} component={TestViewer} />
           <Route
-            exact
-            path='/Teacher/create-test' 
-            render={props => (
-              <ClassesDashboard
-                {...props}
-                loggedIn={loggedIn}
-                currentUser={currentUser}
-              />
-            )}
+            path='/Teacher/classes-dashboard'
+            component={ClassesDashboard}
           />
-          <Route path={`/Student/TakeTest/:testid`} render={props => ( <TakeTest {...props} loggedIn={loggedIn} currentUser={currentUser} /> )}/>
+
+          <Route
+            path={`/class-viewer/:id/:id`}
+            render={props => <ClassViewer {...props} />}
+          />
         </div>
       )}
     </div>

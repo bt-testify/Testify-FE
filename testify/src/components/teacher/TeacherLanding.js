@@ -21,8 +21,8 @@ export default function TeacherLanding(props) {
                 <div className='teacher-tabs'>
                   <NavLink to='/Teacher/create-test'>Create New Test</NavLink>
                   <NavLink to='/Teacher/test-bank'>Test Bank</NavLink>
-                  <NavLink to='/Teacher/student-reports'>
-                    Student Reports
+                  <NavLink to='/Teacher/classes-dashboard'>
+                    Classes Dashboard
                   </NavLink>
                 </div>
                 <h1 className='initial'>Teacher Landing</h1>
