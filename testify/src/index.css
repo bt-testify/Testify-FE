@@ -427,26 +427,6 @@ p {
   border-radius: 2rem;
   box-shadow: 5px 6px 21px 1px #b0b4be;
 }
-h2 {
-  display: flex;
-  justify-content: center;
-  border: 1px solid #4661B7;
-  border-radius: 10rem;
-  align-items: center;
-  width: 40%;
-  height: 6rem;
-  margin: 0 37rem;
-  margin-top: 4rem;
-  box-shadow: 5px 6px 21px 1px #b0b4be;
-}
-@media (max-width: 500px) {
-  h2 {
-    width: 60%;
-    font-size: 3rem;
-    margin: 0 20%;
-    margin-top: 0;
-  }
-}
 .tests {
   display: flex;
   flex-direction: row;
