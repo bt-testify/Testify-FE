@@ -12,18 +12,12 @@ import Login from './components/Login';
 import CreateTest from './components/test/CreateTest';
 import TestBank from './components/teacher/TestBank';
 import ClassesDashboard from './components/teacher/ClassesDashboard';
+import TestViewer from './components/teacher/TestViewer';
+import TakeTest from './components/student/TakeTest.js';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
-  // const [studentUser, setStudentUser] = useState({});
-  // const [teacherUser, setTeacherUser] = useState({});
-
-  // const populateUser = obj => {
-  //   if (obj.isTeacher) {
-  //     setTeacherUser(obj);
-  //   } else setStudentUser(obj);
-  // };
 
   const populateUser = obj => {
     setCurrentUser(obj);
@@ -39,7 +33,7 @@ function App() {
       />
 
       <Route exact path='/' render={props => <Landing {...props} />} />
-      <Route path='/SignUp' render={props => <SignUp {...props} />} />
+      <Route path='/SignUp' render={props => <SignUp {...props} populateUser={populateUser} setLoggedIn={setLoggedIn}/>} />
       <Route
         path='/Login'
         render={props => (
@@ -56,7 +50,6 @@ function App() {
           <Route
             path='/Teacher'
             render={props => (
-              // <TeacherLanding {...props} teacherUser={teacherUser} />
               <TeacherLanding
                 {...props}
                 currentUser={currentUser}
@@ -64,10 +57,10 @@ function App() {
               />
             )}
           />
+          <Route exact path={'/test-viewer/:id'} component={TestViewer} />
           <Route
-            path='/Student'
+            exact path='/Student'
             render={props => (
-              // <StudentLanding {...props} studentUser={studentUser} />
               <StudentLanding
                 {...props}
                 currentUser={currentUser}
@@ -98,9 +91,10 @@ function App() {
               />
             )}
           />
+          {/* set this route to correct path if not already done */}
           <Route
             exact
-            path='/Teacher/create-test'
+            path='/Teacher/create-test' 
             render={props => (
               <ClassesDashboard
                 {...props}
@@ -109,6 +103,7 @@ function App() {
               />
             )}
           />
+          <Route path={`/Student/TakeTest/:testid`} render={props => ( <TakeTest {...props} loggedIn={loggedIn} currentUser={currentUser} /> )}/>
         </div>
       )}
     </div>

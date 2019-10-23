@@ -7,6 +7,9 @@ import {
   SAVE_FAIL,
   SAVE_SUCCESS,
   SAVING,
+  SUBMITTING_TEST,
+  FAIL_SUBMIT_TEST,
+  TEST_SUBMITTED,
   GETTING_TEST,
   TEST_RECEIVED,
   TEST_NOT_RECEIVED
@@ -16,36 +19,11 @@ export const initialState = {
   score: 0,
   isSaving: false,
   isEditing: false,
-  id: 1,
-  creator: 'Mrs. Mathews',
-  title: 'Math Test',
-  testTaker: 'Sally',
-  questions: [
-    {
-      id: 1,
-      correct: false,
-      question: "What's 6X6 ?",
-      type: 'multiple-choice',
-      options: [36, 34, 26, 52],
-      answer: 36
-    },
-    {
-      id: 2,
-      correct: false,
-      question: 'True or False, 6X6=36?',
-      type: 'true-false',
-      options: ['T', 'F'],
-      answer: 'T'
-    },
-    {
-      id: 3,
-      correct: false,
-      question: 'What is the order of operations?',
-      type: 'short-answer',
-      options: 'n/a',
-      answer: 'parentheses, exponents, multiply, divide, add, subtract'
-    }
-  ]
+
+  creator: '',
+  title: '',
+  testTaker: '',
+  questions: []
 };
 
 export const testReducer = (state = initialState, action) => {
@@ -62,20 +40,20 @@ export const testReducer = (state = initialState, action) => {
         creator: action.payload
       };
       break;
-    case SET_TEST_TAKER:
-      alert('SETTING TEST TAKER');
-      break;
+
     case ADD_QUESTION:
       return {
         ...state,
         questions: [...state.questions, action.payload]
       };
       break;
+    case TEST_SUBMITTED:
+      return (state = action.payload);
 
     case SAVING:
       return {
         ...state,
-        isSaving: true
+        isEditing: true
       };
       break;
 
@@ -87,12 +65,16 @@ export const testReducer = (state = initialState, action) => {
       return {
         ...state,
         state: action.payload,
-        isSaving: false
+        isEditing: false
       };
       break;
 
     case TEST_RECEIVED:
       return (state = action.payload);
+      break;
+
+    case SET_TEST_TAKER:
+      alert('SETTING TEST TAKER');
       break;
 
     default:

@@ -1,11 +1,24 @@
-import React from 'react'
+import React, { useEffect }from 'react'
 import AccessDenied from '../AccessDenied.js';
 import StudentGrades from './StudentGrades.js';
 import PendingTests from './PendingTests.js';
 import CompletedTests from './CompletedTests.js';
 
+import { axiosWithAuth } from '../../utils/axiosWithAuth';
+
 export default function StudentLanding(props) {
     const tempTestBank = [{}];
+    useEffect(() => {
+        axiosWithAuth()
+        .get('/allusers')
+        .then(response => {
+          console.log(response);
+        //   setTeachers(response.data.slice(0));
+        })
+        .catch(error => {
+          console.error('Server Error: ', error);
+        });
+    }, [])
     return (
         <div>
         <h1 className='initial'>Student Landing</h1>
