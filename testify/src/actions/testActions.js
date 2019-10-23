@@ -36,12 +36,20 @@ export const SET_TEST_TAKER = 'SET_TEST_TAKER';
 export const setTestTaker = testTaker => {
   return { type: SET_TEST_TAKER, payload: testTaker };
 };
-
-export const SUBMIT_TEST = 'SUBMIT_TEST';
-export const submitTest = test => {
-  return { type: SUBMIT_TEST, payload: test };
+/* ===== SUBMIT TEST ========== */
+export const FAIL_SUBMIT_TEST = 'FAIL_SUBMIT_TEST';
+export const SUBMITTING_TEST = 'SUBMITTING_TEST';
+export const TEST_SUBMITTED = 'TEST_SUBMITTED';
+export const submitTest = testObj => dispatch => {
+  dispatch({ type: SUBMITTING_TEST });
+  axiosWithAuth()
+    .post('/tests', testObj)
+    .then(res => {
+      dispatch({ type: TEST_SUBMITTED, payload: res.data });
+    })
+    .catch(err => dispatch({ type: FAIL_SUBMIT_TEST, payload: err }));
 };
-
+/* ======= SAVING TEST ========   */
 export const SAVING = 'SAVING';
 export const SAVE_SUCCESS = 'SAVE_SUCCESS';
 export const SAVE_FAIL = 'SAVE_FAIL';
@@ -55,11 +63,12 @@ export const save = (testId, testObj) => dispatch => {
     })
     .catch(err => dispatch({ type: SAVE_FAIL, payload: err }));
 };
-
+/* ====== GET TEST ===========  */
 export const GETTING_TEST = 'GETTING_TEST';
 export const TEST_RECEIVED = 'TEST_RECEIVED';
 export const TEST_NOT_RECEIVED = 'TEST_NOT_RECEIVED';
 export const getTest = id => dispatch => {
+  console.log('testActions.js getTest called');
   dispatch({ type: GETTING_TEST });
   axiosWithAuth()
     .get(`/testById/${id}`)

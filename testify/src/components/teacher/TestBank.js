@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
 import { axiosWithAuth } from '../../utils/axiosWithAuth';
+import TestViewer from './TestViewer';
 
 export default function TestBank(props) {
   console.log('TestBank.js props: ', props);
   const { assignedTests, classes, studentIds, name } = props.currentUser;
   const [tests, setTests] = useState([]);
+  const [createdTests, setCreatedTests] = useState([]);
 
   useEffect(() => {
     axiosWithAuth()
       .get(`/testsByCreator/${name}`)
       .then(res => {
         console.log('TestBank.js res', res);
+        setTests(res.data);
       })
       .catch(err => {
         console.log('TestBank.js err', err);
@@ -20,12 +23,12 @@ export default function TestBank(props) {
 
   return (
     <div>
-      <h1 className='initial'>Test Bank Component</h1>
+      <h1 className='initial'>{name}'s Tests</h1>
       <div className='teacher-classes'>
         <ul>
-          {classes.map((klass, index) => (
+          {tests.map((test, index) => (
             <li key={index}>
-              Tests for <a href='#'>{klass.subject} </a> class
+              <Link to={`/test-viewer/${test.id}`}>{test.title}</Link>{' '}
             </li>
           ))}
         </ul>

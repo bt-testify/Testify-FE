@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { setType, addQuestion, save, getTest } from '../../actions';
+import { setType, addQuestion, save, getTest, submitTest } from '../../actions';
 
 const initialState = {
   isEditing: false,
@@ -16,9 +16,12 @@ const initialState = {
 function CreateQuestion(props) {
   /* console.log('CreateQuestions.js props', props); */
   const { addQuestion, save, testObj, getTest } = props;
-
+  const [firstSubmit, setFirstSubmit] = useState(true);
   const [newQuestion, setNewQuestion] = useState(initialState);
   const [choice, setChoice] = useState('');
+
+  console.log('CreateQuestion.js testObj', testObj, firstSubmit);
+
   /* console.log('CreateQuestion.js choice:', choice);
   
  
@@ -70,6 +73,8 @@ function CreateQuestion(props) {
       newQuestion.answer !== ''
     ) {
       addQuestion(newQuestion);
+
+      save(testObj.id, testObj);
 
       setNewQuestion(initialState);
     } else
@@ -145,12 +150,11 @@ function CreateQuestion(props) {
 const mapStateToProps = state => {
   return {
     questions: state.testReducer.questions,
-    testId: state.testReducer.id,
-    testObj: state.testReducer
+    testId: state.testReducer.id
   };
 };
 
 export default connect(
   mapStateToProps,
-  { setType, addQuestion, save, getTest }
+  { setType, addQuestion, save, getTest, submitTest }
 )(CreateQuestion);

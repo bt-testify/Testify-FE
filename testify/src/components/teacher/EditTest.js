@@ -11,11 +11,11 @@ import {
   submitTest,
   getTest
 } from '../../actions';
-import QuestionTypeBuilder from './QuesitonTypeBuilder';
-import CreateQuestion from './CreateQuestion';
+import QuestionTypeBuilder from '../test/QuesitonTypeBuilder';
+import CreateQuestion from '../test/CreateQuestion';
 
-function CreateTest(props) {
-  console.log('CreateTest.js props:', props);
+function EditTest(props) {
+  console.log('EditTest.js props:', props);
   const {
     title,
     questions,
@@ -31,11 +31,6 @@ function CreateTest(props) {
   const [editing, setEditing] = useState(false);
   const [editingId, setEditingId] = useState('');
   /* this use effect is only for development. there will be a blank test rendered and a new id created on server */
-  useEffect(() => {
-    if (!testObj.id) {
-      props.submitTest(testObj);
-    }
-  }, []);
 
   const saveTest = e => {
     e.preventDefault();
@@ -125,4 +120,4 @@ export default connect(
     getTest,
     submitTest
   }
-)(CreateTest);
+)(EditTest);

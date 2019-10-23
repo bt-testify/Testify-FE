@@ -90,3 +90,7 @@ textarea,
 button {
   margin: 10px;
 }
+
+.test-preview {
+  margin: 0 auto;
+}
