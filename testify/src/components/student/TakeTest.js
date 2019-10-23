@@ -44,6 +44,7 @@ export default function TakeTest(props) {
 
     let [currentQuestion, setCurrentQuestion] = useState(0);
     let [answerList, setAnswerList] = useState([]);
+    let [answerCorrect, setAnswerCorrect] = useState([]);
     let [isChecked, setIsChecked] = useState([false, false, false, false]);
 
     //this function makes sure that the selected radio button is the only one that is checked,
@@ -92,11 +93,33 @@ export default function TakeTest(props) {
         console.log(answerList.includes(undefined));
         if (answerList.length === dummyTest.questions.length && answerList.includes(undefined) === false){
             console.log('all questions have been answered');
-            
+            gradeTest();
         }
         else(
             console.log('You must answer all questions.')
         )
+    };
+
+    const gradeTest = () => {
+        dummyTest.questions.forEach((quest, index)=>{
+            // console.log(`Q: ${index}, Correct Answer: ${quest.answer}, Student Answer: ${answerList[index]}`);
+            if (quest.answer == answerList[index]){
+                console.log(`Question ${index} is correct`)
+                answerCorrect[index] = true;
+            }
+            else {
+                console.log(`Question ${index} is incorrect`);
+                answerCorrect[index] = false;
+            }
+        });
+        console.log(answerCorrect);
+        let score = 0;
+        answerCorrect.forEach((bool) => {
+            if (bool){
+                score++
+            }
+        });
+        console.log(`Score: ${score}/${answerCorrect.length}`);
     };
 
     const buttonIncFunc = () => {
@@ -106,13 +129,13 @@ export default function TakeTest(props) {
             checkedCheck();
         }
       };
-      const buttonDecFunc = () => {
-        console.log('Answer state check: ', answerList);
-        if (currentQuestion > 0){
-            setCurrentQuestion(currentQuestion-1);
-            checkedCheck();
-        }
-      };
+    const buttonDecFunc = () => {
+    console.log('Answer state check: ', answerList);
+    if (currentQuestion > 0){
+        setCurrentQuestion(currentQuestion-1);
+        checkedCheck();
+    }
+    };
 
     return (
         <div>
@@ -133,7 +156,7 @@ export default function TakeTest(props) {
                                 if (dummyTest.questions[currentQuestion].type === 'multiple-choice'){
                                     return (
                                     <div>
-                                        <p>I'm a multiple choice!!</p>
+                                        {/* <p>I'm a multiple choice!!</p> */}
                                         <p>{dummyTest.questions[currentQuestion].question}</p>
                                         <form name='form1'>
                                         {dummyTest.questions[currentQuestion].options.map(function(opt, index){
@@ -146,7 +169,7 @@ export default function TakeTest(props) {
                                 else if (dummyTest.questions[currentQuestion].type === 'true-false'){
                                     return (
                                     <div>
-                                        <p>I'm a true-false!!</p>
+                                        {/* <p>I'm a true-false!!</p> */}
                                         <p>{dummyTest.questions[currentQuestion].question}</p>
                                         <form name='form2'>
                                         {dummyTest.questions[currentQuestion].options.map((opt, index)=>{
@@ -158,7 +181,7 @@ export default function TakeTest(props) {
                                 else if (dummyTest.questions[currentQuestion].type === 'short-answer'){
                                     return (
                                     <div>
-                                        <p>I'm a short-answer!!</p>
+                                        {/* <p>I'm a short-answer!!</p> */}
                                         <p>{dummyTest.questions[currentQuestion].question}</p>
                                         <form>
                                             <input type="text" name="gender" onChange={handleChange} placeholder={answerList[currentQuestion] || 'Enter your answer here.'}/>
