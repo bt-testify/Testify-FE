@@ -631,10 +631,14 @@ footer .icons img {
 .headerDiv {
   width: 100%;
   height: 20rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  justify-content: space-between;
 }
 .headerDiv .semicircle {
-  width: 40rem;
-  height: 40rem;
+  width: 30rem;
+  height: 30rem;
   background: linear-gradient(135deg, #0d1757 0%, #356aa0 52%, #356aa0 50%);
   border-bottom-right-radius: 40rem;
   box-shadow: 5px 6px 21px 1px #b0b4be;
@@ -646,15 +650,43 @@ footer .icons img {
 .headerDiv .initial {
   position: relative;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  margin-top: 9rem;
   font-size: 7rem;
   text-shadow: 2px 2px 5px #030303;
   width: 30rem;
   height: 20rem;
   color: #72C421;
   border: none;
+  margin: 1rem;
+}
+.headerDiv nav {
+  width: auto;
+  height: 10rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  margin-bottom: 11rem;
+  border-bottom-left-radius: 2rem;
+  background: #4661B7;
+}
+.headerDiv nav a {
+  width: 20rem;
+  height: 10rem;
+  text-decoration: none;
+  color: white;
+  font-size: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.headerDiv nav a:hover {
+  border-bottom-left-radius: 2rem;
+  background: #DCE6FB;
+  color: #252a2a;
+}
+.headerDiv #login {
+  border-radius: 0;
 }
 @font-face {
   font-family: 'Nunito';
