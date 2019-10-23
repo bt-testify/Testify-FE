@@ -71,6 +71,14 @@ const SignUpForm = ({ setLoggedIn, populateUser, history, values, touched, error
         <Field
           className='field'
           type='text'
+          name='name'
+          placeholder='name'
+        />
+        {touched.name && errors.name && (<p className='error'>{errors.name}</p>)}
+        <br />
+        <Field
+          className='field'
+          type='text'
           name='username'
           placeholder='username'
         />
@@ -160,6 +168,7 @@ const SignUpForm = ({ setLoggedIn, populateUser, history, values, touched, error
 const SignUp = withFormik({
   mapPropsToValues({
     username,
+    name,
     email,
     password,
     isTeacher,
@@ -168,6 +177,7 @@ const SignUp = withFormik({
   }) {
     return {
       username: username || '',
+      name,
       email: email || '',
       password: password || '',
       isTeacher: isTeacher || false,
@@ -177,6 +187,7 @@ const SignUp = withFormik({
   },
 
   validationSchema: Yup.object().shape({
+    name: Yup.string().required('Please enter your name'),
     username: Yup.string().required('Please enter your username'),
     email: Yup.string().required('Please enter your email'),
     password: Yup.string().min(6, 'Password must be at least six characters long.').required('Please enter a password'),

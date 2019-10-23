@@ -16,14 +16,6 @@ import ClassesDashboard from './components/teacher/ClassesDashboard';
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
-  // const [studentUser, setStudentUser] = useState({});
-  // const [teacherUser, setTeacherUser] = useState({});
-
-  // const populateUser = obj => {
-  //   if (obj.isTeacher) {
-  //     setTeacherUser(obj);
-  //   } else setStudentUser(obj);
-  // };
 
   const populateUser = obj => {
     setCurrentUser(obj);
@@ -56,7 +48,6 @@ function App() {
           <Route
             path='/Teacher'
             render={props => (
-              // <TeacherLanding {...props} teacherUser={teacherUser} />
               <TeacherLanding
                 {...props}
                 currentUser={currentUser}
@@ -67,7 +58,6 @@ function App() {
           <Route
             path='/Student'
             render={props => (
-              // <StudentLanding {...props} studentUser={studentUser} />
               <StudentLanding
                 {...props}
                 currentUser={currentUser}
@@ -98,9 +88,10 @@ function App() {
               />
             )}
           />
+          {/* set this route to correct path if not already done */}
           <Route
             exact
-            path='/Teacher/create-test'
+            path='/Teacher/create-test' 
             render={props => (
               <ClassesDashboard
                 {...props}
