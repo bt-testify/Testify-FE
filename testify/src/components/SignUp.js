@@ -1,51 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { withFormik, Form, Field } from 'formik';
 import * as Yup from 'yup';
-import axios from 'axios';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
-import { withRouter } from "react-router";
 import '../test.css';
 
-//need to have a checkbox for student/teacher, and if student, then have a searchform or dropdown to select your teacher
-//(loaded from list of users that are teachers from server.)
-
-//need to check if email has already been used to create a user
-
-//need to assign ID to created user when it gets sent to the server
-
-// Empty inline JSX function:
-// {(() => {})()}
-
-// userArray = [{teacher},{student},{teacher}];
-//  teacher{
-//     id:id
-//     username:username
-//     email:email
-//     password:password
-//     isTeacher: true;
-//     classes: [ [{student},{student},{student}], [{student},{student},{student}], [{student},{student},{student}] ]
-//     students: [studentuserid, studentuserid, studentuserid]
-//     testBank: [{test}, {test}, {test}]
-// }
-//  student{
-//     id:id
-//     username:username
-//     email:email
-//     password:password
-//     isTeacher: false;
-//     teacherID: teacherID;
-//     teacherName: teacherName;
-//     class:class
-//     grade:grade
-//     assignedTests: [{test}, {test}, {test}]
-//     completedTests: [{test}, {test}, {test}]
-// }
-
-//notes: search for teacher- maybe only display one to select if you type a username that matches a teacher?
-//that way it doesnt show you all teacher on the site
 
 const SignUpForm = ({ setLoggedIn, populateUser, history, values, touched, errors, status }) => {
-  const [serverUserList, setServerUserList] = useState([]);
   const [teachers, setTeachers] = useState([]);
 
   const [searchTerm, setSearchTerm] = useState('');
@@ -53,9 +13,10 @@ const SignUpForm = ({ setLoggedIn, populateUser, history, values, touched, error
   let initial;
 
   useEffect(()=>{
+    //This is to prevent you from being redirected as soon as you visit the page.
     initial = true;
   }, [])
-  
+
   useEffect(() => {
     // redirect to teacher or student dashboard here
     if (!initial){
@@ -74,25 +35,12 @@ const SignUpForm = ({ setLoggedIn, populateUser, history, values, touched, error
     initial = false;
   }, [status]);
   useEffect(() => {
-    //axios get all users here, set into local array to search from
-    //use array length to set ID of new user
-    //filter teachers with search to allow student to choose teacher
-    axios
-      .get('https://rickandmortyapi.com/api/character/')
+    //axios get reduced teachers array here, then search by name to add to student object
+    axiosWithAuth()
+      .get('/teachers')
       .then(response => {
-        // console.log(response);
-        //   console.log(response.data.results);
-        setServerUserList(response.data.results.slice(0));
-
-        setTeachers(
-          serverUserList.filter(usr => {
-            return usr.isTeacher === true;
-          })
-        );
-
-        //!!!! temporary code because rick and morty characters to not have an isTeacher bool
-        setTeachers(response.data.results.slice(0));
-        //!!!!
+        console.log(response);
+        setTeachers(response.data.slice(0));
       })
       .catch(error => {
         console.error('Server Error: ', error);
@@ -126,9 +74,7 @@ const SignUpForm = ({ setLoggedIn, populateUser, history, values, touched, error
           name='username'
           placeholder='username'
         />
-        {touched.username && errors.username && (
-          <p className='error'>{errors.username}</p>
-        )}
+        {touched.username && errors.username && (<p className='error'>{errors.username}</p>)}
         <br />
 
         <Field
@@ -137,9 +83,7 @@ const SignUpForm = ({ setLoggedIn, populateUser, history, values, touched, error
           name='email'
           placeholder='email'
         />
-        {touched.email && errors.email && (
-          <p className='error'>{errors.email}</p>
-        )}
+        {touched.email && errors.email && (<p className='error'>{errors.email}</p>)}
         <br />
 
         <Field
@@ -148,9 +92,7 @@ const SignUpForm = ({ setLoggedIn, populateUser, history, values, touched, error
           name='password'
           placeholder='password'
         />
-        {touched.password && errors.password && (
-          <p className='error'>{errors.password}</p>
-        )}
+        {touched.password && errors.password && (<p className='error'>{errors.password}</p>)}
         <br />
 
         <label className='field'>
@@ -164,7 +106,6 @@ const SignUpForm = ({ setLoggedIn, populateUser, history, values, touched, error
           if (!values.isTeacher) {
             return (
               <label>
-                {' '}
                 Who is your teacher? <br />
                 <Field
                   className='field'
@@ -190,22 +131,25 @@ const SignUpForm = ({ setLoggedIn, populateUser, history, values, touched, error
                     );
                   })}
                 </Field>
+                {touched.teacherID && errors.teacherID && (<p className='error'>Please select a teacher.</p>)}
                 <br /> <br />
               </label>
             );
           }
         })()}
 
-        {(() => {
-          /*  values.id = serverUserList.length; //this is setting the new user's ID based off the length of the server user list.
-                    if (values.teacherID !== null){
-                        teachers.forEach((teach)=>{
-                            if (teach.id === values.id){
-                                values.teacherName= teach.name; //this sets the teacherName based off of the values.teacherID which is set in the dropdown.
-                            }; //I couldn't easily figure out how to make selecting the dropdown update two values or run an inline function, so I did it here.
-                        })
-                    } */
+        {(()=>{
+          if (values.isTeacher){
+            values.teacherID = 0
+          }
         })()}
+
+        {values.teacherID !== null &&
+        teachers.forEach((teach)=>{
+          if (teach.id == values.teacherID){
+              values.teacherName= teach.name; //this sets the teacherName based off of the values.teacherID which is set in the dropdown.
+          }; //I couldn't easily figure out how to make selecting the dropdown update two values or run an inline function, so I did it here.
+        })}
 
         <button type='submit'>Submit!</button>
       </Form>
@@ -227,7 +171,7 @@ const SignUp = withFormik({
       email: email || '',
       password: password || '',
       isTeacher: isTeacher || false,
-      teacherID: teacherID || 0,
+      teacherID: teacherID || null,
       teacherName: teacherName || 'null',
     };
   },
@@ -235,7 +179,8 @@ const SignUp = withFormik({
   validationSchema: Yup.object().shape({
     username: Yup.string().required('Please enter your username'),
     email: Yup.string().required('Please enter your email'),
-    password: Yup.string().required('Please enter a password')
+    password: Yup.string().min(6, 'Password must be at least six characters long.').required('Please enter a password'),
+    teacherID: Yup.number().required('Please pick an option')
   }),
 
   handleSubmit( values, { setStatus }) {
