@@ -508,16 +508,6 @@ h2 {
   border-radius: 2rem;
   box-shadow: 5px 6px 21px 1px #b0b4be;
 }
-button {
-  width: 20%;
-  height: 5rem;
-  border-radius: 2rem;
-  background: #4661B7;
-  color: white;
-  font-family: 'Nunito', sans-serif;
-  font-size: 2rem;
-  margin: 10rem 50rem;
-}
 footer {
   width: 100%;
   height: 10rem;
