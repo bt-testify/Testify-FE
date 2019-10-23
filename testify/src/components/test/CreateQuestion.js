@@ -7,7 +7,7 @@ const initialState = {
   id: '',
   correct: false,
   question: '',
-  type: '',
+  type: 'Choose Value',
   options: [],
   answer: ''
 };
@@ -19,6 +19,7 @@ function CreateQuestion(props) {
   const [firstSubmit, setFirstSubmit] = useState(true);
   const [newQuestion, setNewQuestion] = useState(initialState);
   const [choice, setChoice] = useState('');
+  const [submitted, setSubmitted] = useState(false);
 
   console.log('CreateQuestion.js testObj', testObj, firstSubmit);
 
@@ -76,7 +77,16 @@ function CreateQuestion(props) {
 
       save(testObj.id, testObj);
 
-      setNewQuestion(initialState);
+      setNewQuestion({
+        isEditing: false,
+        id: '',
+        correct: false,
+        question: '',
+        type: '',
+        options: [],
+        answer: '',
+        value: ''
+      });
     } else
       alert(
         "Make sure all fields are filled in and you've selected the correct answer!"
@@ -88,9 +98,10 @@ function CreateQuestion(props) {
       <h3>Create Question</h3>
       <form className='create-question-form' action=''>
         <select name='type' onChangeCapture={handleChanges} type='text'>
-          <option defaultValue value='Choose a question type'>
+          <option defaultValue value='Choose type'>
             Choose a question type:
           </option>
+
           <option value='multiple-choice'>multiple choice</option>
           <option value='true-false'>true-false</option>
           <option value='short-answer'>short answer</option>
@@ -141,7 +152,9 @@ function CreateQuestion(props) {
         {/* !!! IMPORTANT we need a server to actually save the uptdated test with the new question, otherwise every time the page re-renders,
           questions that are not hard-coded will be lost !
         */}
-        <button onClick={submitQuestion}>Submit Question</button>
+        <button type='submit' onClick={submitQuestion}>
+          Submit Question
+        </button>
       </form>
     </div>
   );
