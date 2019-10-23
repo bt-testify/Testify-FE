@@ -192,22 +192,27 @@ export default function Header({ currentUser, populateUser, loggedIn, setLoggedI
       {(() => {
         if (loggedIn === true) {
           return (
+            <>
+            <h1>Welcome {currentUser.name}!</h1>
             <nav className='loggedIn'>
-              <StyledNavLink exact to='/'>
+              <NavLink exact to='/'>
                 Home{' '}
-              </StyledNavLink>
+              </NavLink>
 
-              <StyledNavLink to='/Teacher'>Teacher </StyledNavLink>
-              <StyledNavLink to='/Student'>Student </StyledNavLink>
+              <NavLink id='login' to='/Teacher'>Teacher </NavLink>
+              <NavLink id='login' to='/Student'>Student </NavLink>
             </nav>
+            
+            
+            </>
           );
         } else if (loggedIn === false) {
           return (
             <nav className='notLoggedIn'>
-              <StyledNavLink exact to='/'>
+              <NavLink exact to='/'>
                 Home{' '}
-              </StyledNavLink>
-              <StyledNavLink to='/Login'>Login </StyledNavLink>
+              </NavLink>
+              <NavLink id='login' to='/Login'>Login </NavLink>
             </nav>
           );
         }
@@ -218,7 +223,7 @@ export default function Header({ currentUser, populateUser, loggedIn, setLoggedI
       {/* {(() => {if (currentUser !== null){
         return <h1>{currentUser.name}</h1>
       }})()} */}
-      <h1>Welcome {currentUser.name}!</h1>
+      
       <button
         onClick={() => {
           if (loggedIn) { 
