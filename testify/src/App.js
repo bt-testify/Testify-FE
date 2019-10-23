@@ -12,6 +12,7 @@ import Login from './components/Login';
 import CreateTest from './components/test/CreateTest';
 import TestBank from './components/teacher/TestBank';
 import ClassesDashboard from './components/teacher/ClassesDashboard';
+import TestViewer from './components/teacher/TestViewer';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -55,6 +56,7 @@ function App() {
               />
             )}
           />
+          <Route exact path={'/test-viewer/:id'} component={TestViewer} />
           <Route
             path='/Student'
             render={props => (

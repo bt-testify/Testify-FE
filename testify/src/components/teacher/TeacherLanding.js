@@ -5,6 +5,7 @@ import CreateTest from '../test/CreateTest';
 import Question from '../test/CreateQuestion';
 import CreateQuestion from '../test/CreateQuestion';
 import TestBank from '../teacher/TestBank';
+import TestViewer from './TestViewer';
 
 export default function TeacherLanding(props) {
   // const { teacherUser } = props;

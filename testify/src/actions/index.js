@@ -8,6 +8,7 @@ export {
   setTitle,
   setCreator,
   save,
+  submitTest,
   getTest,
   GETTING_TEST,
   TEST_RECEIVED,
@@ -19,7 +20,10 @@ export {
   REMOVE_QUESTION,
   SET_TEST_TAKER,
   SET_TITLE,
-  SET_CREATOR
+  SET_CREATOR,
+  SUBMITTING_TEST,
+  TEST_SUBMITTED,
+  FAIL_SUBMIT_TEST
 } from './testActions';
 export {
   addOption,
