@@ -1,0 +1,223 @@
+
+
+
+.about{
+    .flex(row, center, center);
+    height: 60rem;
+    background:#DEE4FF;
+
+    @media @mobile, @tablet {
+        .flex(column, center, center);
+       
+    }
+    h3{
+        .flexsimp(center, center);
+        width: 30rem;
+        height:5rem;
+
+        @media @mobile, @tablet {
+            margin-bottom: -4.5rem;
+            background: white;
+            font-size: 3rem;
+        }
+    }
+
+    p{
+        .flexsimp(center, center);
+        width:100%;
+        height: auto;
+        background: @accent-color;
+        border-radius: 10rem;
+        padding: 3rem;
+        margin: 2rem 0;
+        color: @light-grey;
+        
+
+        @media @mobile, @tablet {
+            text-align: center;
+            position: relative;
+            z-index: -1;
+            border-radius: 5rem;
+            margin-bottom: 5rem;
+            padding-top: 4rem;
+        }
+        
+    }
+    img{
+        width: 40%;
+        height: auto;
+        margin: 5rem;
+        border-radius: 2rem;
+        box-shadow: @shadow;
+    }
+}
+
+.users{
+    .flex(row, center, center);
+    height: 80rem;
+    background: @grey;
+    position: relative;
+    z-index: -2;
+
+    @media @mobile {
+        .flex(column, center,center);
+        margin:5rem 0;
+        width: 100%;
+        margin-bottom: 5rem;
+    }
+    .user{
+        .flex(column, center, center);
+        margin: 1rem;
+        padding: 1rem;
+        width: 30%;
+        height: 50rem;
+        
+
+        @media @mobile {
+            width: 100%;
+            height: auto;
+        }
+        h4{
+            .flexsimp(center,center);
+            margin-bottom: -1rem;
+            background: white;
+            width:50%;
+            height:3rem;
+            .border();
+            font-size: 2rem;
+            // box-shadow: @shadow;
+
+            @media @mobile{
+                font-size: 3rem;
+                width: 60%;
+                height: 6rem;
+                margin-bottom: -3rem;
+            }
+            
+        }
+
+        p{
+            position: relative;
+            z-index: -1;
+            background: @accent-color;
+            padding: 2rem;
+            padding-top: 2rem;
+            border-radius: 2rem;
+            box-shadow: @shadow;
+            
+            
+
+            @media @mobile{
+                text-align: center;
+                padding: 3rem;
+                padding-top: 5rem;
+                margin-bottom: 3rem;
+            }
+
+        }
+    }
+    img{
+        width: 30%;
+        height: auto;
+        border-radius: 2rem;
+        box-shadow: @shadow;
+    }
+}
+
+h2{
+    .flexsimp(center,center);
+    .border();
+    align-items: center;
+    width: 40%;
+    height: 6rem;
+    margin: 0 37rem;
+    margin-top: 4rem;
+    box-shadow: @shadow;
+
+    @media @mobile{
+        width: 60%;
+        font-size: 3rem;
+        margin: 0 20%;
+        margin-top: 0;
+    }
+}
+
+
+.tests{
+    .flex(row,center,center);
+    width: 100%;
+    height: 30rem;
+
+    @media @mobile{
+        .flex(column, center, center);
+        height: auto;
+    }
+    
+    .test{
+        .flex(column, center,center);
+        padding: 1rem;
+        width: 30%;
+        height: 25rem;
+
+        @media @mobile{
+            width: 100%;
+        }
+
+        h5{
+            .flexsimp(center,center);
+            margin-right: 92%;
+            .border();
+            width:4rem;
+            height: 4rem;
+            margin-bottom: -2rem;
+            background: white;
+            font-size: 1.5rem;
+            // box-shadow: @shadow;
+
+            @media @mobile{
+                margin-right: 0;
+                width: 6rem;
+                height: 6rem;
+                font-size: 3rem;
+            }
+        }
+
+        p{
+            position: relative;
+            z-index: -1;
+            background: @accent-color;
+            padding: 1rem;
+            padding-top: 2rem; 
+            border-radius: 2rem;
+            box-shadow: @shadow;
+        }
+    }
+}
+
+button{
+    width: 20%;
+    height: 5rem;
+    border-radius: 2rem;
+    background: @main-color;
+    color: white;
+    font-family: @font;
+    font-size: 2rem;
+    margin: 10rem 50rem;
+}
+
+footer{
+    width: 100%;
+    height: 10rem;
+    background: @footer;
+    color: white;
+    .flex(column, center,center);
+
+    .icons{
+        margin: 1rem;
+
+        img{
+            margin: 1rem;
+        }
+    }
+    
+}

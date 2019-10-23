@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
-import '../test.css';
+
 
 export default function Header({ currentUser, populateUser, loggedIn, setLoggedIn }) {
   const HDiv = styled.div`
@@ -183,10 +183,12 @@ export default function Header({ currentUser, populateUser, loggedIn, setLoggedI
   return (
     <>
     <HDiv className='headerDiv'>
+      <div className='semicircle'>
       <StyledLink to='/'>
         <h1 className='initial'>Testify</h1>
       </StyledLink>
-
+      </div>
+      
       {(() => {
         if (loggedIn === true) {
           return (
