@@ -1,0 +1,117 @@
+
+.mainheader{
+    .flex(row, flex-start ,flex-start);
+    height: 80rem;
+    width: 100%;
+
+    h1{
+        .flexsimp(center,center);
+        margin-top:25rem;
+        font-size: 20rem;
+        text-shadow: 2px 2px 5px rgb(3, 3, 3);
+        width: 60rem;
+        height: 20rem;
+        // border: 1px solid @main-color;
+        // border-radius: 10rem;
+        // box-shadow: @shadow;
+        color: #72C421;
+        
+        
+
+        @media @mobile {
+            width: 80%;
+            height: 15rem;
+            margin-top: 15rem;
+            margin-left: -35rem;
+            background:white;
+           
+        }
+
+        @media @tablet{
+            width: 80%;
+            height: 15rem;
+            margin-top: 15rem;
+            margin-left: -30rem;
+            background: white;
+
+        }
+    }
+
+    p{
+        .flexsimp(center,center);
+        width: 100%;
+        margin-top: 5rem;
+        color: @light-grey;
+       
+    }
+}
+.navarea{
+    // width: 100%;
+    position: relative;
+    display: inline-block;
+    
+    
+    .semicircle{
+        width: 40rem;
+        height: 40rem;
+        // background-color:@main-color;
+        background: linear-gradient(135deg, #0d1757 0%,#356aa0 52%,#356aa0 50%);
+        border-bottom-right-radius: 40rem;
+        box-shadow: @shadow;
+        // box-shadow: inset -158px 1px 184px 46px rgba(22,36,106,0.14);      
+
+        @media @mobile, @tablet{
+            position: relative;
+            z-index: -1;
+        }
+        
+    }
+
+
+    .menuicon{
+        position: absolute; top:0; left:1rem;
+        
+        &:hover #navhover {display: block;}
+        div { 
+            
+            width: 5rem;
+            height: 1rem;
+            background-color: @main-color;
+            box-shadow: @insetshadow;
+            margin: 6px 0;
+            border-radius: 1rem;
+
+            @media @mobile {
+                width: 5rem;
+                height: 1rem;
+                border-radius: 1rem;
+            }
+            
+        }
+    
+       nav{
+            display: none;
+            position: absolute; top: 5rem; left: 2rem;
+            background-color: #f1f1f1;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 2rem;
+
+            a{
+                color:@text-color;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+                font-size: 3rem;
+                border-radius: 2rem;
+
+                &:hover {background-color:@light-blue;}
+
+                @media @mobile{
+                    font-size: 3rem;
+                }
+            }
+        }
+    }
+}

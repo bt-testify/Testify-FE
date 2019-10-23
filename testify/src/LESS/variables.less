@@ -1,0 +1,41 @@
+@main-color: @dark-blue;
+@accent-color: @light-blue;
+@text-color: #252a2a;
+
+@font: 'Nunito', sans-serif;
+
+@shadow: 5px 6px 21px 1px rgb(176, 180, 190);
+@insetshadow: inset 0px 0px 64px 36px rgba(70,97,183,0.26);
+
+@tablet: ~'(max-width: 800px)';
+@mobile: ~'(max-width: 500px)';
+//color palette 
+
+@dark-blue:  #4661B7;
+@green: #72C421;
+@light-blue: #DCE6FB;
+@yellow: #E88802;
+@red: #DB2E30;
+@light-grey: #6C7A89;
+@grey: #A0B0D7;
+@footer: #2A3978;
+
+//Mixins
+
+.flexsimp(@just, @align){
+    display: flex;
+    justify-content: @just;
+    align-items: @align;   
+};
+
+.flex(@dir, @just, @align){
+    display: flex;
+    flex-direction: @dir;
+    justify-content: @just;
+    align-items: @align;
+}
+
+.border(){
+    border: 1px solid @main-color;
+    border-radius: 10rem;
+}
