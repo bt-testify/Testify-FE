@@ -4,7 +4,7 @@ export default function StudentGrades() {
 
     let dummyTests = [{id: 0, score: 100, assigned: '10/22/2019', completed: '10/25/2019' },
     {id: 1, score: 100, assigned: '10/22/2019', completed: '10/25/2019' },
-    {id: 2, score: 100, assigned: '10/22/2019', completed: '10/25/2019' },
+    {id: 2, score: 40, assigned: '10/22/2019', completed: '10/25/2019' },
     {id: 3, score: 100, assigned: '10/22/2019', completed: '10/25/2019' },
     {id: 4, score: 20, assigned: '10/22/2019', completed: '10/25/2019' },
     {id: 5, score: 100, assigned: '10/22/2019', completed: '10/25/2019' },

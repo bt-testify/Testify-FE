@@ -177,7 +177,7 @@ const SignUp = withFormik({
   }) {
     return {
       username: username || '',
-      name,
+      name: name || '',
       email: email || '',
       password: password || '',
       isTeacher: isTeacher || false,
