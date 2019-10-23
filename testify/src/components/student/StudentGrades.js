@@ -9,7 +9,7 @@ export default function StudentGrades() {
     {id: 4, score: 20, assigned: '10/22/2019', completed: '10/25/2019' },
     {id: 5, score: 100, assigned: '10/22/2019', completed: '10/25/2019' },
     {id: 6, score: 0, assigned: '10/22/2019', completed: '10/25/2019' },
-    {id: 7, score: 100, assigned: '10/22/2019', completed: '10/25/2019' },
+    {id: 7, score: 90, assigned: '10/22/2019', completed: '10/25/2019' },
     {id: 8, score: 100, assigned: '10/22/2019', completed: '10/25/2019' },
     {id: 9, score: 100, assigned: '10/22/2019', completed: '10/25/2019' },
     {id: 10, score: 100, assigned: '10/22/2019', completed: '10/25/2019' },];

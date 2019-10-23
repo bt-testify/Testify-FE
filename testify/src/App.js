@@ -13,6 +13,7 @@ import CreateTest from './components/test/CreateTest';
 import TestBank from './components/teacher/TestBank';
 import ClassesDashboard from './components/teacher/ClassesDashboard';
 import TestViewer from './components/teacher/TestViewer';
+import TakeTest from './components/student/TakeTest.js';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -58,7 +59,7 @@ function App() {
           />
           <Route exact path={'/test-viewer/:id'} component={TestViewer} />
           <Route
-            path='/Student'
+            exact path='/Student'
             render={props => (
               <StudentLanding
                 {...props}
@@ -102,6 +103,7 @@ function App() {
               />
             )}
           />
+          <Route path={`/Student/TakeTest/:testid`} render={props => ( <TakeTest {...props} loggedIn={loggedIn} currentUser={currentUser} /> )}/>
         </div>
       )}
     </div>
