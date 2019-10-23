@@ -44,22 +44,34 @@ import '../test.css';
 //notes: search for teacher- maybe only display one to select if you type a username that matches a teacher?
 //that way it doesnt show you all teacher on the site
 
-const SignUpForm = ({ history, values, touched, errors, status }) => {
-  const [user, setUser] = useState([]);
+const SignUpForm = ({ setLoggedIn, populateUser, history, values, touched, errors, status }) => {
   const [serverUserList, setServerUserList] = useState([]);
   const [teachers, setTeachers] = useState([]);
 
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
+  let initial;
 
-  // const redirectUser = (string) => {
-  //   history.push(string);
-  // };
-  console.log(history);
-
+  useEffect(()=>{
+    initial = true;
+  }, [])
+  
   useEffect(() => {
-    status && setUser(user => [...user, status]);
-    history.push('/Student');
+    // redirect to teacher or student dashboard here
+    if (!initial){
+      console.log(status);
+      if (status.newUser.isTeacher){
+        populateUser(status.newUser);
+        setLoggedIn(true);
+        history.push('/Teacher');
+      }
+      else{
+        populateUser(status.newUser);
+        setLoggedIn(true);
+        history.push('/Student');
+      }
+    }
+    initial = false;
   }, [status]);
   useEffect(() => {
     //axios get all users here, set into local array to search from
@@ -103,8 +115,6 @@ const SignUpForm = ({ history, values, touched, errors, status }) => {
       setSearchResults([]);
     }
   }, [teachers, searchTerm]);
-
-  const dropDownFunc = teach => {};
 
   return (
     <div>
@@ -153,7 +163,6 @@ const SignUpForm = ({ history, values, touched, errors, status }) => {
         {(() => {
           if (!values.isTeacher) {
             return (
-              //<p>Teacher!!</p>
               <label>
                 {' '}
                 Who is your teacher? <br />
@@ -197,34 +206,9 @@ const SignUpForm = ({ history, values, touched, errors, status }) => {
                         })
                     } */
         })()}
-        {(() => {
-          values.stupidprops = history;
-          // console.log('stupidprops: ', stupidprops);
-        })()}
 
         <button type='submit'>Submit!</button>
       </Form>
-
-      {/* temp code to display successful object creation */}
-      {user.map((mem, index) => (
-        <ul key={index}>
-          <li>id: {mem.id}</li>
-          <li>Name: {mem.username}</li>
-          <li>Email: {mem.email}</li>
-          <li>Password: {mem.password}</li>
-
-          {(() => {
-            if (!mem.isTeacher) {
-              return <li>Teacher Name: {mem.teacherName}</li>;
-            }
-          })()}
-          {(() => {
-            if (!mem.isTeacher) {
-              return <li>Teacher ID: {mem.teacherID}</li>;
-            }
-          })()}
-        </ul>
-      ))}
     </div>
   );
 };
@@ -237,7 +221,6 @@ const SignUp = withFormik({
     isTeacher,
     teacherID,
     teacherName,
-    stupidprops,
   }) {
     return {
       username: username || '',
@@ -246,7 +229,6 @@ const SignUp = withFormik({
       isTeacher: isTeacher || false,
       teacherID: teacherID || 0,
       teacherName: teacherName || 'null',
-      stupidprops: stupidprops || 'null',
     };
   },
 
@@ -257,9 +239,7 @@ const SignUp = withFormik({
   }),
 
   handleSubmit( values, { setStatus }) {
-    //Appending teacher and student specific vars to form object here before posting to the server
-    // history.push('/Student');
-    // console.log(props);
+    //Appending vars to form object that do not come from input form here before posting to the server
     values.students = [];
     values.testBank = [];
     values.classes = [];
@@ -268,34 +248,18 @@ const SignUp = withFormik({
     values.assignedTests = [];
     values.completedTests = [];
 
-    let formikProps = values.stupidprops;
-    // console.log(stupidprops);
-    console.log('formikProps:', formikProps);
-    values.stupidprops = null;
-
     axiosWithAuth()
       // values is our object with all our data on it.
       .post('/api/signUp', values)
       .then(res => {
         setStatus(res.data);
-        console.log(res.data);
-        formikProps.history.push('/Student');
-        if (res.data.isTeacher){
-          // redirectUser('/Teacher');
-        }
-        else{
-          // redirectUser('/Student');
-        }
       })
       .catch(err => {
         alert(err.response.data.error);
         console.log(err.response);
       });
   }
-  //!!!!
-  //set logged in and redirect to teacher or student dashboard here
-  //!!!!
-})(SignUpForm); //, props
+})(SignUpForm);
 
 export default SignUp;
 

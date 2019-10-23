@@ -26,6 +26,7 @@ export default function Login(props) {
           props.populateUser(res.data.user);
         } else {
           props.history.push('/Student');
+          props.populateUser(res.data.user);
         }
 
         props.setLoggedIn(true);

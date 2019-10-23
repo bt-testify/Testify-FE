@@ -39,7 +39,7 @@ function App() {
       />
 
       <Route exact path='/' render={props => <Landing {...props} />} />
-      <Route path='/SignUp' render={props => <SignUp {...props} />} />
+      <Route path='/SignUp' render={props => <SignUp {...props} populateUser={populateUser} setLoggedIn={setLoggedIn}/>} />
       <Route
         path='/Login'
         render={props => (
