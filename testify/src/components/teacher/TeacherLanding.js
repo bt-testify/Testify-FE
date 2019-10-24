@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink, Route } from 'react-router-dom';
 import AccessDenied from '../AccessDenied.js';
 import CreateTest from '../test/CreateTest';
@@ -10,6 +10,8 @@ import TestViewer from './TestViewer';
 export default function TeacherLanding(props) {
   // const { teacherUser } = props;
   // const { name, username, email } = teacherUser;
+  const [navigated, setNavigated] = useState(false);
+
   console.log('TeacherLanding.js props: ', props);
   return (
     <div>
@@ -20,17 +22,9 @@ export default function TeacherLanding(props) {
               <div>
                 <div className='teacher-tabs'>
                   <NavLink to='/Teacher/create-test'>Create New Test</NavLink>
-                  <NavLink to='/Teacher/test-bank'>Test Bank</NavLink>
-                  <NavLink to='/Teacher/student-reports'>
-                    Student Reports
-                  </NavLink>
-                </div>
-                <h1 className='initial'>Teacher Landing</h1>
-                <div className='user-info'>
-                  {/* <p>username: {username}</p>
-                      <p>email: {email}</p> */}
-                  <p>username: {props.currentUser.username}</p>
-                  <p>email: {props.currentUser.email}</p>
+                  <NavLink to='/Teacher/test-bank'>My Test Bank</NavLink>
+                  <NavLink to='/Teacher/student-roster'>Student Roster</NavLink>
+                  <NavLink to='/Teacher/classes-dashboard'>My Classes</NavLink>
                 </div>
               </div>
             );

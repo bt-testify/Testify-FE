@@ -20,7 +20,6 @@ const TestViewer = props => {
 
   return (
     <div>
-      <h1>TEST TestViewer</h1>
       <button onClick={() => setEditing(!editing)}>Edit Test</button>
       {editing && (
         <div>
@@ -29,9 +28,8 @@ const TestViewer = props => {
       )}
       {!editing && (
         <div>
-          <h1>Not Editing!</h1>
           <div className='test-preview'>
-            <h1>Test Preview</h1>
+            <h5>Test Preview</h5>
             <p>Test id: {id}</p>
             <div className='created-test'>
               <h2>Title: {title}</h2>

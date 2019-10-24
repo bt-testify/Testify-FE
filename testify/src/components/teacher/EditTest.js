@@ -64,7 +64,6 @@ function EditTest(props) {
 
       {/* ======= PREVIEW ========= */}
       <div className='test-preview'>
-        <h1>Test Preview</h1>
         <p>Test id: {id}</p>
         <div className='created-test'>
           <button onClick={saveTest}>Save Changes</button>
