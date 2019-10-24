@@ -4,14 +4,24 @@ import { connect } from 'react-redux';
 import { assginStudentToClass } from '../../actions';
 
 const StudentRoster = props => {
-  const { teacherObj } = props;
-  const { classes, studentIds, teacherId } = teacherObj;
-  const [students, setStudents] = useState([{}]);
+  const { teacherObj, classes } = props;
+  const { studentIds, teacherId } = teacherObj;
+  const [students, setStudents] = useState([]);
   const [openDropDown, setOpenDropDown] = useState(false);
   console.log('StudentRoster.js techerObj:', teacherObj);
   console.log('StudentRoster.js students', students);
   console.log('StudentIds: ', studentIds);
-  useEffect(() => {}, []);
+  console.log('StudentRoster.js classes', classes);
+
+  /* [{id: 0, subject: "Math", students: Array(2), testsAssigned: Array(1)} ]*/
+
+  const addStudentToClass = (id, subject) => {
+    const selectedClass = classes.find(klass => klass.subject == subject);
+    const inClass = selectedClass.students.find(stu => stu.id == id);
+    if (!inClass) {
+      selectedClass.students.push(id);
+    }
+  };
 
   const getStudents = () => {
     studentIds.map(stId => {
@@ -49,7 +59,7 @@ const StudentRoster = props => {
                     <label htmlFor={klass.subject}>{klass.subject}</label>
                     <input
                       onClick={() =>
-                        assginStudentToClass(student.id, klass.subject)
+                        addStudentToClass(student.id, klass.subject)
                       }
                       name={student.name}
                       value={klass.subject}
@@ -77,7 +87,8 @@ const StudentRoster = props => {
 
 const mapStateTopProps = state => {
   return {
-    teacherObj: state.teacherReducer
+    teacherObj: state.teacherReducer,
+    classes: state.teacherReducer.classes
   };
 };
 

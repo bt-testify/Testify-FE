@@ -29,6 +29,7 @@ export const addQuestion = question => {
 
 export const REMOVE_QUESTION = 'REMOVE_QUESTION';
 export const removeQuestion = question => {
+  console.log('testActions removeQuestoin id', question);
   return { type: REMOVE_QUESTION, payload: question };
 };
 
@@ -88,4 +89,23 @@ export const CLEAR_FIELDS = 'CLEAR_FIELDS';
 
 export const clearFields = () => dispatch => {
   dispatch({ type: CLEAR_FIELDS });
+};
+
+/* ======== DELETE TEST ================ */
+export const DELETEING_TEST = 'DELETEING_TEST';
+export const TEST_DELETED = 'TEST_DELETED';
+export const CONFIRM_DELETE_TEST = 'CONFIRM_DELETE_TEST';
+export const deleteTest = id => dispatch => {
+  dispatch({ type: CONFIRM_DELETE_TEST });
+  dispatch({ type: DELETEING_TEST, payload: id });
+  axiosWithAuth()
+    .delete(`/tests/${id}`)
+    .then(res => {
+      alert('Your Test Has Been Deleted!');
+      console.log(res.data);
+      dispatch({ type: CLEAR_FIELDS });
+    })
+    .catch(err => {
+      console.log(err);
+    });
 };

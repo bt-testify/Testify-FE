@@ -14,6 +14,7 @@ import {
 } from '../../actions';
 import QuestionTypeBuilder from './QuesitonTypeBuilder';
 import CreateQuestion from './CreateQuestion';
+import EditQuestion from './EditQuestion';
 
 function CreateTest(props) {
   console.log('CreateTest.js props:', props);
@@ -28,6 +29,7 @@ function CreateTest(props) {
     save,
     getTest,
     createNewTest,
+    removeQuestion,
     id
   } = props;
   const [editing, setEditing] = useState(false);
@@ -98,13 +100,15 @@ function CreateTest(props) {
                   <QuestionTypeBuilder question={question} />
                   {/* For editing */}
                   <p>answer: {question.answer}</p>
-                  {editing && editingId === index && <CreateQuestion />}
+                  {editing && editingId === index && <EditQuestion />}
                   <button
                     onClick={() => (setEditing(!editing), setEditingId(index))}
                   >
                     Edit
                   </button>
-                  <button>Delete</button>
+                  <button onClick={() => removeQuestion(question.question)}>
+                    Delete
+                  </button>
                 </div>
               );
             })}

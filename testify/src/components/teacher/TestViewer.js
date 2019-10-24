@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { axiosWithAuth } from '../../utils/axiosWithAuth';
 import { connect } from 'react-redux';
-import { setTitle, setCreator, getTest, addQuestion } from '../../actions';
+import {
+  setTitle,
+  setCreator,
+  getTest,
+  addQuestion,
+  deleteTest
+} from '../../actions';
 import CreateQuestion from '../test/CreateQuestion';
 import EditTest from './EditTest';
 import QuestionTypeBuilder from '../test/QuesitonTypeBuilder';
@@ -13,7 +19,6 @@ const TestViewer = props => {
   console.log('TestView.js idToGet: ', idToGet);
   const { title, questions, creator, id } = props.testObj;
   console.log(title, questions, creator, id);
-
   useEffect(() => {
     props.getTest(idToGet);
   }, []);
@@ -21,6 +26,14 @@ const TestViewer = props => {
   return (
     <div>
       <button onClick={() => setEditing(!editing)}>Edit Test</button>
+      <button
+        onClick={() => {
+          props.deleteTest(id);
+          props.history.push('/Teacher/test-bank');
+        }}
+      >
+        DELETE THIS TEST
+      </button>
       {editing && (
         <div>
           <EditTest history={props.history} />
@@ -30,10 +43,11 @@ const TestViewer = props => {
         <div>
           <div className='test-preview'>
             <h5>Test Preview</h5>
+            <h3>Teacher: {creator}</h3>
             <p>Test id: {id}</p>
             <div className='created-test'>
               <h2>Title: {title}</h2>
-              <h4>Teacher: {creator}</h4>
+
               <div className='questions'>
                 {questions.map((question, index) => {
                   return (
@@ -65,5 +79,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { getTest, setTitle, setCreator, addQuestion }
+  { getTest, setTitle, setCreator, addQuestion, deleteTest }
 )(TestViewer);

@@ -15,7 +15,9 @@ import {
   GETTING_TEST,
   TEST_RECEIVED,
   TEST_NOT_RECEIVED,
-  CLEAR_FIELDS
+  CLEAR_FIELDS,
+  DELETEING_TEST,
+  CONFIRM_DELETE_TEST
 } from '../actions';
 /* model test obj. */
 export const initialState = {
@@ -31,6 +33,9 @@ export const initialState = {
 
 export const testReducer = (state = initialState, action) => {
   switch (action.type) {
+    case NEW_TEST_CREATED:
+      return (state = action.payload);
+      break;
     case SET_TITLE:
       return {
         ...state,
@@ -50,8 +55,14 @@ export const testReducer = (state = initialState, action) => {
         questions: [...state.questions, action.payload]
       };
       break;
-    case NEW_TEST_CREATED:
-      return (state = action.payload);
+
+    case REMOVE_QUESTION:
+      return {
+        ...state,
+        questions: [
+          ...state.questions.filter(item => item.question !== action.payload)
+        ]
+      };
 
     case SAVING:
       return {
@@ -82,6 +93,10 @@ export const testReducer = (state = initialState, action) => {
 
     case SET_TEST_TAKER:
       alert('SETTING TEST TAKER');
+      break;
+
+    case CONFIRM_DELETE_TEST:
+      window.confirm('Are you sure you want to delete this test?');
       break;
 
     default:

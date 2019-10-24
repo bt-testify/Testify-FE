@@ -4,7 +4,7 @@ import { setType, addQuestion, save, getTest, submitTest } from '../../actions';
 
 const initialState = {
   isEditing: false,
-  id: '',
+  id: Date.now(),
   correct: false,
   question: '',
   type: 'Choose Value',

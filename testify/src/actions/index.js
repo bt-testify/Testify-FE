@@ -30,7 +30,11 @@ export {
   CREATING_NEW_TEST,
   NEW_TEST_CREATED,
   CREATE_TEST_FAILED,
-  CLEAR_FIELDS
+  CLEAR_FIELDS,
+  DELETEING_TEST,
+  TEST_DELETED,
+  deleteTest,
+  CONFIRM_DELETE_TEST
 } from './testActions';
 export {
   addOption,
