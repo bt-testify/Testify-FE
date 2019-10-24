@@ -81,6 +81,7 @@ function App() {
                 {...props}
                 loggedIn={loggedIn}
                 currentUser={currentUser}
+                setCurrentUser={setCurrentUser}
               />
             )}
           />
@@ -139,11 +140,6 @@ function App() {
             path={`/Teacher/class-viewer/:id/:id`}
             render={props => <ClassViewer {...props} />}
           />
-<<<<<<< HEAD
-          <Route path={`/Student/TakeTest/:testid`} render={props => ( 
-          <TakeTest {...props} loggedIn={loggedIn} currentUser={currentUser} setCurrentUser={setCurrentUser} /> )}/>
-=======
->>>>>>> a9410f2cc27bb62bd010a3a9c2c01ef6317b6a65
         </div>
       )}
     </div>
