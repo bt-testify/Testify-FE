@@ -1,4 +1,9 @@
-export { SET_USER, setUser } from './teacherActions';
+export {
+  SET_USER,
+  setUser,
+  ASSIGN_STUDENT_TO_CLASS,
+  assginStudentToClass
+} from './teacherActions';
 
 export {} from './studentActions';
 export {

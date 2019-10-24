@@ -1,5 +1,7 @@
 import {
   SET_TITLE,
+  setTitle,
+  save,
   SET_CREATOR,
   SET_TEST_TAKER,
   ADD_QUESTION,

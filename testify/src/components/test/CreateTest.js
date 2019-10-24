@@ -33,7 +33,7 @@ function CreateTest(props) {
   const [editing, setEditing] = useState(false);
   const [editingId, setEditingId] = useState('');
   const [clearingFiels, setClearingFields] = useState(false);
-
+  console.log('teacherName:', teacherName);
   /* this use effect is only for development. there will be a blank test rendered and a new id created on server */
 
   useEffect(() => {
@@ -50,6 +50,10 @@ function CreateTest(props) {
     props.history.push('/Teacher/test-bank');
   };
 
+  const persistTitle = () => {
+    save(testObj.id, testObj);
+  };
+
   return (
     <div className='create-test-container'>
       <div className='creator-forms-container'>
@@ -58,6 +62,7 @@ function CreateTest(props) {
           <input
             onChange={e => {
               setTitle(e.target.value);
+              persistTitle();
             }}
             type='text'
             placeholder='Title'
@@ -66,6 +71,7 @@ function CreateTest(props) {
             onChange={e => {
               setCreator(e.target.value);
             }}
+            value={creator}
             type='text'
             placeholder='Teacher'
           />
