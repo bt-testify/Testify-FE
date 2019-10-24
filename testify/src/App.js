@@ -81,6 +81,7 @@ function App() {
                 {...props}
                 loggedIn={loggedIn}
                 currentUser={currentUser}
+                setCurrentUser={setCurrentUser}
               />
             )}
           />
