@@ -609,7 +609,7 @@ footer .icons img {
 .headerDiv .semicircle {
   width: 30rem;
   height: 30rem;
-  background: linear-gradient(135deg, #0d1757 0%, #356aa0 52%, #356aa0 50%);
+  background: linear-gradient(135deg, #4661B7 30%, #465791 52%, #465791 50%);
   border-bottom-right-radius: 40rem;
   box-shadow: 5px 6px 21px 1px #b0b4be;
   position: relative;
@@ -655,8 +655,20 @@ footer .icons img {
   background: #DCE6FB;
   color: #252a2a;
 }
+.headerDiv h1 {
+  color: #252a2a;
+  font-size: 6rem;
+  margin-top: 15rem;
+  position: relative;
+  z-index: 1;
+  text-shadow: 2px 2px 2px #b4b4b4;
+}
 .headerDiv #login {
   border-radius: 0;
+}
+.headerDiv .active {
+  background: #6a80c6;
+  border-bottom-left-radius: 2rem;
 }
 @font-face {
   font-family: 'Nunito';
