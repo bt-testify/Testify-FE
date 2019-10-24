@@ -666,6 +666,10 @@ footer .icons img {
 .headerDiv #login {
   border-radius: 0;
 }
+.headerDiv .active {
+  background: #6a80c6;
+  border-bottom-left-radius: 2rem;
+}
 @font-face {
   font-family: 'Nunito';
   font-style: normal;
