@@ -25,13 +25,11 @@ export default function TestBank(props) {
     <div>
       <h1 className='initial'>{name}'s Tests</h1>
       <div className='teacher-classes'>
-        <ul>
-          {tests.map((test, index) => (
-            <li key={index}>
-              <Link to={`/test-viewer/${test.id}`}>{test.title}</Link>{' '}
-            </li>
-          ))}
-        </ul>
+        {tests.map((test, index) => (
+          <Link key={index} to={`/Teacher/test-viewer/${test.id}`}>
+            {test.title}
+          </Link>
+        ))}
       </div>
     </div>
   );

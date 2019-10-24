@@ -12,7 +12,7 @@ const ClassesDashboard = props => {
       <h1 className='initial'>{name}'s classes:</h1>
       <ul className='teacher-class-list'>
         {classes.map(klass => (
-          <NavLink to={`/class-viewer/${name}/${klass.subject}`}>
+          <NavLink to={`/Teacher/class-viewer/${name}/${klass.subject}`}>
             {klass.subject}
           </NavLink>
         ))}

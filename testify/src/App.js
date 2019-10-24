@@ -15,6 +15,7 @@ import ClassesDashboard from './components/teacher/ClassesDashboard';
 import ClassViewer from './components/teacher/ClassViewer';
 import TestViewer from './components/teacher/TestViewer';
 import TakeTest from './components/student/TakeTest.js';
+import StudentRoster from './components/teacher/StudentRoster';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -58,7 +59,6 @@ function App() {
       {loggedIn && (
         <div>
           {/* set this route to correct path if not already done */}
-
           {/* ========= STUDENT ROUTES =============
               ========= STUDENT ROUTES =============
               ========= STUDENT ROUTES =============
@@ -98,7 +98,6 @@ function App() {
               />
             )}
           />
-
           <Route
             exact
             path='/Teacher/create-test'
@@ -121,14 +120,23 @@ function App() {
               />
             )}
           />
-          <Route exact path={'/test-viewer/:id'} component={TestViewer} />
+          <Route
+            exact
+            path={'/Teacher/test-viewer/:id'}
+            component={TestViewer}
+          />
+          <Route
+            exact
+            path={'/Teacher/student-roster'}
+            component={StudentRoster}
+          />
+
           <Route
             path='/Teacher/classes-dashboard'
             component={ClassesDashboard}
           />
-
           <Route
-            path={`/class-viewer/:id/:id`}
+            path={`/Teacher/class-viewer/:id/:id`}
             render={props => <ClassViewer {...props} />}
           />
         </div>

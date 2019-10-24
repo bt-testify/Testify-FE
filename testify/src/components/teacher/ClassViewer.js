@@ -39,23 +39,26 @@ const ClassViewer = props => {
     <div>
       <h2>{currentClass.subject}</h2>
       <div className='assignments'>
-        <h3>Tests:</h3>
+        <h3>Tests Assigned:</h3>
         <ul>
           {currentClass.testsAssigned.map(test => (
             <li key={test.title}>
-              <h3>{test.title}</h3>
+              <h4>{test.title}</h4>
+              <p>Remove student from this class</p>
               <p>Date assigned: {test.assignedDate}</p>
               <p>Due: {test.dueDate}</p>
             </li>
           ))}
         </ul>
       </div>
-      <div className='students-in-class'>
-        <ul>
-          {currentClass.students.map(student => (
-            <h4>{student}</h4>
-          ))}
-        </ul>
+      <div className='students-list'>
+        {students.map(student => (
+          <div key={student.id} className='class-viewer-student'>
+            <h4>Name: {student.name}</h4>
+            <p>GPA: {student.gpa}</p>
+            <p>Email: {student.email}</p>
+          </div>
+        ))}
       </div>
     </div>
   );
