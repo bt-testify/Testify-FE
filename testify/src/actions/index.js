@@ -10,6 +10,7 @@ export {
   save,
   createNewTest,
   getTest,
+  clearFields,
   GETTING_TEST,
   TEST_RECEIVED,
   TEST_NOT_RECEIVED,
@@ -23,7 +24,8 @@ export {
   SET_CREATOR,
   CREATING_NEW_TEST,
   NEW_TEST_CREATED,
-  CREATE_TEST_FAILED
+  CREATE_TEST_FAILED,
+  CLEAR_FIELDS
 } from './testActions';
 export {
   addOption,

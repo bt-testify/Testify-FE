@@ -23,7 +23,7 @@ const TestViewer = props => {
       <button onClick={() => setEditing(!editing)}>Edit Test</button>
       {editing && (
         <div>
-          <EditTest />
+          <EditTest history={props.history} />
         </div>
       )}
       {!editing && (

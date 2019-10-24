@@ -81,3 +81,11 @@ export const getTest = id => dispatch => {
       dispatch({ type: TEST_NOT_RECEIVED, payload: err });
     });
 };
+
+/* ==== CLEAR FIELDS ======== */
+
+export const CLEAR_FIELDS = 'CLEAR_FIELDS';
+
+export const clearFields = () => dispatch => {
+  dispatch({ type: CLEAR_FIELDS });
+};

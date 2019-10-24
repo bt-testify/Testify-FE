@@ -20,7 +20,11 @@ function CreateQuestion(props) {
   const [newQuestion, setNewQuestion] = useState(initialState);
   const [choice, setChoice] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [callSave, setCallSave] = useState(false);
 
+  useEffect(() => {
+    props.save(testObj.id, testObj);
+  }, [callSave]);
   console.log('CreateQuestion.js testObj', testObj, firstSubmit);
 
   /* console.log('CreateQuestion.js choice:', choice);
@@ -74,9 +78,7 @@ function CreateQuestion(props) {
       newQuestion.answer !== ''
     ) {
       addQuestion(newQuestion);
-
-      save(testObj.id, testObj);
-
+      setCallSave(!callSave);
       setNewQuestion({
         isEditing: false,
         id: '',

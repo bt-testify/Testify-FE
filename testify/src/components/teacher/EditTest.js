@@ -9,7 +9,8 @@ import {
   setCreator,
   save,
   createNewTest,
-  getTest
+  getTest,
+  clearFields
 } from '../../actions';
 import QuestionTypeBuilder from '../test/QuesitonTypeBuilder';
 import CreateQuestion from '../test/CreateQuestion';
@@ -35,6 +36,8 @@ function EditTest(props) {
   const saveTest = e => {
     e.preventDefault();
     save(testObj.id, testObj);
+    props.history.push('/Teacher/test-bank');
+    props.clearFields();
   };
 
   return (
@@ -118,6 +121,7 @@ export default connect(
     setCreator,
     save,
     getTest,
-    createNewTest
+    createNewTest,
+    clearFields
   }
 )(EditTest);

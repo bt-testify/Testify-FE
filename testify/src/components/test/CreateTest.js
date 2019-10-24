@@ -9,7 +9,8 @@ import {
   setCreator,
   save,
   createNewTest,
-  getTest
+  getTest,
+  clearFields
 } from '../../actions';
 import QuestionTypeBuilder from './QuesitonTypeBuilder';
 import CreateQuestion from './CreateQuestion';
@@ -31,16 +32,22 @@ function CreateTest(props) {
   } = props;
   const [editing, setEditing] = useState(false);
   const [editingId, setEditingId] = useState('');
+  const [clearingFiels, setClearingFields] = useState(false);
+
   /* this use effect is only for development. there will be a blank test rendered and a new id created on server */
+
   useEffect(() => {
-    if (!testObj.id) {
-      props.createNewTest(testObj);
-    }
+    setClearingFields(!clearFields);
   }, []);
+
+  useEffect(() => {
+    props.createNewTest(testObj);
+  }, [clearFields]);
 
   const saveTest = e => {
     e.preventDefault();
     save(testObj.id, testObj);
+    props.history.push('/Teacher/test-bank');
   };
 
   return (
@@ -125,6 +132,7 @@ export default connect(
     setCreator,
     save,
     getTest,
-    createNewTest
+    createNewTest,
+    clearFields
   }
 )(CreateTest);

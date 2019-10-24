@@ -12,7 +12,8 @@ import {
   CREATE_TEST_FAILED,
   GETTING_TEST,
   TEST_RECEIVED,
-  TEST_NOT_RECEIVED
+  TEST_NOT_RECEIVED,
+  CLEAR_FIELDS
 } from '../actions';
 /* model test obj. */
 export const initialState = {
@@ -57,11 +58,15 @@ export const testReducer = (state = initialState, action) => {
       };
       break;
 
+    case CLEAR_FIELDS:
+      return (state = initialState);
+
     case SAVE_SUCCESS:
       console.log(
         'testReducer.js SAVE_SUCESSS action.payload: ',
         action.payload
       );
+
       return {
         ...state,
         state: action.payload,
