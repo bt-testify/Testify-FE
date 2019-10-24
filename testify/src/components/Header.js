@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
-import '../test.css';
+
 
 export default function Header({ currentUser, populateUser, loggedIn, setLoggedIn }) {
   const HDiv = styled.div`
@@ -183,29 +183,36 @@ export default function Header({ currentUser, populateUser, loggedIn, setLoggedI
   return (
     <>
     <HDiv className='headerDiv'>
+      <div className='semicircle'>
       <StyledLink to='/'>
         <h1 className='initial'>Testify</h1>
       </StyledLink>
-
+      </div>
+      
       {(() => {
         if (loggedIn === true) {
           return (
+            <>
+            <h1>Welcome {currentUser.name}!</h1>
             <nav className='loggedIn'>
-              <StyledNavLink exact to='/'>
+              <NavLink exact to='/'>
                 Home{' '}
-              </StyledNavLink>
+              </NavLink>
 
-              <StyledNavLink to='/Teacher'>Teacher </StyledNavLink>
-              <StyledNavLink to='/Student'>Student </StyledNavLink>
+              <NavLink id='login' to='/Teacher'>Teacher </NavLink>
+              <NavLink id='login' to='/Student'>Student </NavLink>
             </nav>
+            
+            
+            </>
           );
         } else if (loggedIn === false) {
           return (
             <nav className='notLoggedIn'>
-              <StyledNavLink exact to='/'>
+              <NavLink exact to='/'>
                 Home{' '}
-              </StyledNavLink>
-              <StyledNavLink to='/Login'>Login </StyledNavLink>
+              </NavLink>
+              <NavLink id='login' to='/Login'>Login </NavLink>
             </nav>
           );
         }
@@ -216,7 +223,7 @@ export default function Header({ currentUser, populateUser, loggedIn, setLoggedI
       {/* {(() => {if (currentUser !== null){
         return <h1>{currentUser.name}</h1>
       }})()} */}
-      <h1>Welcome {currentUser.name}!</h1>
+      
       <button
         onClick={() => {
           if (loggedIn) { 
