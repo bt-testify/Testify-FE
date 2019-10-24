@@ -8,8 +8,9 @@ import {
   removeQuestion,
   setCreator,
   save,
-  submitTest,
-  getTest
+  createNewTest,
+  getTest,
+  clearFields
 } from '../../actions';
 import QuestionTypeBuilder from './QuesitonTypeBuilder';
 import CreateQuestion from './CreateQuestion';
@@ -18,6 +19,7 @@ function CreateTest(props) {
   console.log('CreateTest.js props:', props);
   const {
     title,
+    teacherName,
     questions,
     creator,
     setTitle,
@@ -25,21 +27,27 @@ function CreateTest(props) {
     testObj,
     save,
     getTest,
-    submitTest,
+    createNewTest,
     id
   } = props;
   const [editing, setEditing] = useState(false);
   const [editingId, setEditingId] = useState('');
+  const [clearingFiels, setClearingFields] = useState(false);
+
   /* this use effect is only for development. there will be a blank test rendered and a new id created on server */
+
   useEffect(() => {
-    if (!testObj.id) {
-      props.submitTest(testObj);
-    }
+    setClearingFields(!clearFields);
   }, []);
+
+  useEffect(() => {
+    props.createNewTest(testObj);
+  }, [clearFields]);
 
   const saveTest = e => {
     e.preventDefault();
     save(testObj.id, testObj);
+    props.history.push('/Teacher/test-bank');
   };
 
   return (
@@ -71,7 +79,7 @@ function CreateTest(props) {
         <h1>Test Preview</h1>
         <p>Test id: {id}</p>
         <div className='created-test'>
-          <button onClick={saveTest}>Save Changes</button>
+          <button onClick={saveTest}>Submit Test</button>
           <h2>Title: {title}</h2>
           <h4>Teacher: {creator}</h4>
           <div className='questions'>
@@ -109,7 +117,8 @@ const mapStateToProps = state => {
     testTaker: state.testReducer.testTaker,
     questions: state.testReducer.questions,
     id: state.testReducer.id,
-    testObj: state.testReducer
+    testObj: state.testReducer,
+    teacherName: state.teacherReducer.name
   };
 };
 
@@ -123,6 +132,7 @@ export default connect(
     setCreator,
     save,
     getTest,
-    submitTest
+    createNewTest,
+    clearFields
   }
 )(CreateTest);

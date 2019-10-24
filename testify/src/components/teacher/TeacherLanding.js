@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, Route } from 'react-router-dom';
 import AccessDenied from '../AccessDenied.js';
-import CreateTest from '../test/CreateTest';
-import Question from '../test/CreateQuestion';
-import CreateQuestion from '../test/CreateQuestion';
-import TestBank from '../teacher/TestBank';
-import TestViewer from './TestViewer';
+import { connect } from 'react-redux';
+import { clearFields } from '../../actions';
 
-export default function TeacherLanding(props) {
+const TeacherLanding = props => {
   // const { teacherUser } = props;
   // const { name, username, email } = teacherUser;
   const [navigated, setNavigated] = useState(false);
@@ -21,7 +18,12 @@ export default function TeacherLanding(props) {
             return (
               <div>
                 <div className='teacher-tabs'>
-                  <NavLink to='/Teacher/create-test'>Create New Test</NavLink>
+                  <NavLink
+                    onClick={props.clearFields}
+                    to='/Teacher/create-test'
+                  >
+                    Create New Test
+                  </NavLink>
                   <NavLink to='/Teacher/test-bank'>My Test Bank</NavLink>
                   <NavLink to='/Teacher/student-roster'>Student Roster</NavLink>
                   <NavLink to='/Teacher/classes-dashboard'>My Classes</NavLink>
@@ -37,4 +39,13 @@ export default function TeacherLanding(props) {
       })()}
     </div>
   );
-}
+};
+
+const mapStateToProps = state => {
+  return {};
+};
+
+export default connect(
+  mapStateToProps,
+  { clearFields }
+)(TeacherLanding);

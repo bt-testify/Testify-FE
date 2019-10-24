@@ -7,12 +7,13 @@ import {
   SAVE_FAIL,
   SAVE_SUCCESS,
   SAVING,
-  SUBMITTING_TEST,
-  FAIL_SUBMIT_TEST,
-  TEST_SUBMITTED,
+  NEW_TEST_CREATED,
+  CREATING_NEW_TEST,
+  CREATE_TEST_FAILED,
   GETTING_TEST,
   TEST_RECEIVED,
-  TEST_NOT_RECEIVED
+  TEST_NOT_RECEIVED,
+  CLEAR_FIELDS
 } from '../actions';
 /* model test obj. */
 export const initialState = {
@@ -47,7 +48,7 @@ export const testReducer = (state = initialState, action) => {
         questions: [...state.questions, action.payload]
       };
       break;
-    case TEST_SUBMITTED:
+    case NEW_TEST_CREATED:
       return (state = action.payload);
 
     case SAVING:
@@ -57,11 +58,15 @@ export const testReducer = (state = initialState, action) => {
       };
       break;
 
+    case CLEAR_FIELDS:
+      return (state = initialState);
+
     case SAVE_SUCCESS:
       console.log(
         'testReducer.js SAVE_SUCESSS action.payload: ',
         action.payload
       );
+
       return {
         ...state,
         state: action.payload,

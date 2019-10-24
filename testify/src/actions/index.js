@@ -8,8 +8,9 @@ export {
   setTitle,
   setCreator,
   save,
-  submitTest,
+  createNewTest,
   getTest,
+  clearFields,
   GETTING_TEST,
   TEST_RECEIVED,
   TEST_NOT_RECEIVED,
@@ -21,9 +22,10 @@ export {
   SET_TEST_TAKER,
   SET_TITLE,
   SET_CREATOR,
-  SUBMITTING_TEST,
-  TEST_SUBMITTED,
-  FAIL_SUBMIT_TEST
+  CREATING_NEW_TEST,
+  NEW_TEST_CREATED,
+  CREATE_TEST_FAILED,
+  CLEAR_FIELDS
 } from './testActions';
 export {
   addOption,
