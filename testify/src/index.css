@@ -655,6 +655,14 @@ footer .icons img {
   background: #DCE6FB;
   color: #252a2a;
 }
+.headerDiv h1 {
+  color: #252a2a;
+  font-size: 6rem;
+  margin-top: 15rem;
+  position: relative;
+  z-index: 1;
+  text-shadow: 2px 2px 2px #b4b4b4;
+}
 .headerDiv #login {
   border-radius: 0;
 }
