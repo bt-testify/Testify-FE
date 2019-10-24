@@ -212,6 +212,7 @@ export default function Header({ currentUser, populateUser, loggedIn, setLoggedI
               <NavLink exact to='/'>
                 Home{' '}
               </NavLink>
+              <NavLink id='login' to='/About'>About </NavLink>
               <NavLink id='login' to='/Login'>Login </NavLink>
             </nav>
           );
