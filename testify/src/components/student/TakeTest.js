@@ -124,7 +124,7 @@ export default function TakeTest(props) {
         console.log(`Score: ${score}/${gradedAnswers.length}`);
         const today = new Date();
         console.log(`${today.getMonth()+1}-${today.getDate()}-${today.getFullYear()}`);
-        
+
         let completedTest = { 
             testId: dummyTest.id, testTitle: dummyTest.title, answersList: answerList,
             gradedAnswers: gradedAnswers, scorePercentage: scorePercentage,
@@ -138,12 +138,12 @@ export default function TakeTest(props) {
         console.log(props.currentUser.completedTests);
         
         axiosWithAuth()
-            .put('/updateUser/:usr', props.currentUser)
+            .put(`/updateUser/${props.currentUser.id}`, props.currentUser)
             .then(res => {
             console.log(res.data);
             })
             .catch(err => {
-            console.log('TestBank.js err', err);
+            console.log('Error updating user: ', err);
             });
         
     };
