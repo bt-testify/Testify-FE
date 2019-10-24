@@ -94,3 +94,12 @@ button {
 .test-preview {
   margin: 0 auto;
 }
+
+.teacher-tabs {
+  border: 2px solid yellow;
+  width: 50%;
+  margin: 10px auto;
+  display: flex;
+  justify-content: space-around;
+  text-decoration: none;
+}

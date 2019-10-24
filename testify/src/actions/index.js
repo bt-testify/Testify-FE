@@ -1,4 +1,4 @@
-export {} from './teacherActions';
+export { SET_USER, setUser } from './teacherActions';
 
 export {} from './studentActions';
 export {

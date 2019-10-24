@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
+import { connect } from 'react-redux';
+import { setUser } from '../actions';
 
-export default function Login(props) {
+const Login = props => {
   /* ==== Will use this for login when server set up ===== */
   const [credentials, setCredentials] = useState({
     username: '',
@@ -24,9 +26,11 @@ export default function Login(props) {
         if (res.data.user.isTeacher) {
           props.history.push('/Teacher');
           props.populateUser(res.data.user);
+          props.setUser(res.data.user);
         } else {
           props.history.push('/Student');
           props.populateUser(res.data.user);
+          props.setUser(res.data.user);
         }
 
         props.setLoggedIn(true);
@@ -42,13 +46,32 @@ export default function Login(props) {
     <div className='login-container initial'>
       <h1>Login</h1>
       <form onSubmit={login}>
-        <input type='text' name='username' placeholder='Username' onChange={handleChange} />
-        <input type='password' name='password' placeholder='Password' onChange={handleChange} />
+        <input
+          type='text'
+          name='username'
+          placeholder='Username'
+          onChange={handleChange}
+        />
+        <input
+          type='password'
+          name='password'
+          placeholder='Password'
+          onChange={handleChange}
+        />
         <button type='submit'>Log in</button>
       </form>
       <span>New here?</span>
-      <br/>
+      <br />
       <Link to='/SignUp'>Sign up for an account</Link>
     </div>
   );
-}
+};
+
+const mapStateToProps = state => {
+  return {};
+};
+
+export default connect(
+  mapStateToProps,
+  { setUser }
+)(Login);

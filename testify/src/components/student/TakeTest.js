@@ -124,11 +124,14 @@ export default function TakeTest(props) {
         console.log(`Score: ${score}/${gradedAnswers.length}`);
         const today = new Date();
         console.log(`${today.getMonth()+1}-${today.getDate()}-${today.getFullYear()}`);
+        
         let completedTest = { 
             testId: dummyTest.id, testTitle: dummyTest.title, answersList: answerList,
             gradedAnswers: gradedAnswers, scorePercentage: scorePercentage,
             assignedDate : 'fix me', completedDate: `${today.getMonth()+1}-${today.getDate()}-${today.getFullYear()}`};
             // {testid: testid, testTitle, answersList, gradedAnswers, scorePercentage}
+
+
         console.log(completedTest);
         console.log(props.currentUser.completedTests);
         props.currentUser.completedTests.push(completedTest);
