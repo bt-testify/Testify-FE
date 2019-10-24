@@ -5,6 +5,7 @@ import { Route } from 'react-router-dom';
 import Header from './components/Header.js';
 import './App.css';
 import Landing from './components/landing/Landing.js';
+import About from './components/landing/About.js';
 import SignUp from './components/SignUp.js';
 import TeacherLanding from './components/teacher/TeacherLanding.js';
 import StudentLanding from './components/student/StudentLanding.js';
@@ -35,6 +36,7 @@ function App() {
       />
 
       <Route exact path='/' render={props => <Landing {...props} />} />
+      <Route exact path='/About' render={props => <About {...props} />} />
       <Route
         path='/SignUp'
         render={props => (

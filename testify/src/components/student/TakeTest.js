@@ -139,6 +139,7 @@ export default function TakeTest(props) {
     };
     // {testid: testid, testTitle, answersList, gradedAnswers, scorePercentage}
 
+<<<<<<< HEAD
     console.log('Test.js currentUser', props.currentUser);
     console.log(completedTest);
     console.log(
@@ -160,6 +161,54 @@ export default function TakeTest(props) {
         console.log('TestBank.js err', err);
       });
   };
+=======
+    const handleSubmit = () => {
+        dummyTest.questions.forEach((quest, index)=>{
+            // console.log(`Q: ${index}, Correct Answer: ${quest.answer}, Student Answer: ${answerList[index]}`);
+            if (quest.answer == answerList[index]){
+                console.log(`Question ${index} is correct`)
+                gradedAnswers[index] = true;
+            }
+            else {
+                console.log(`Question ${index} is incorrect`);
+                gradedAnswers[index] = false;
+            }
+        });
+        console.log(gradedAnswers);
+        let score = 0;
+        gradedAnswers.forEach((bool) => {
+            if (bool){
+                score++
+            }
+        });
+        let scorePercentage = (score/gradedAnswers.length).toFixed();
+        console.log(`Score: ${score}/${gradedAnswers.length}`);
+        const today = new Date();
+        console.log(`${today.getMonth()+1}-${today.getDate()}-${today.getFullYear()}`);
+
+        let completedTest = { 
+            testId: dummyTest.id, testTitle: dummyTest.title, answersList: answerList,
+            gradedAnswers: gradedAnswers, scorePercentage: scorePercentage,
+            assignedDate : 'fix me', completedDate: `${today.getMonth()+1}-${today.getDate()}-${today.getFullYear()}`};
+            // {testid: testid, testTitle, answersList, gradedAnswers, scorePercentage}
+
+
+        console.log(completedTest);
+        console.log(props.currentUser.completedTests);
+        props.currentUser.completedTests.push(completedTest);
+        console.log(props.currentUser.completedTests);
+        
+        axiosWithAuth()
+            .put(`/updateUser/${props.currentUser.id}`, props.currentUser)
+            .then(res => {
+            console.log(res.data);
+            })
+            .catch(err => {
+            console.log('Error updating user: ', err);
+            });
+        
+    };
+>>>>>>> 0013dacfc955d5b62da554b23f5ea873421046a8
 
   const buttonIncFunc = () => {
     console.log('Answer state check: ', answerList);
