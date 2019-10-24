@@ -8,7 +8,7 @@ import {
   removeQuestion,
   setCreator,
   save,
-  submitTest,
+  createNewTest,
   getTest
 } from '../../actions';
 import QuestionTypeBuilder from './QuesitonTypeBuilder';
@@ -18,6 +18,7 @@ function CreateTest(props) {
   console.log('CreateTest.js props:', props);
   const {
     title,
+    teacherName,
     questions,
     creator,
     setTitle,
@@ -25,7 +26,7 @@ function CreateTest(props) {
     testObj,
     save,
     getTest,
-    submitTest,
+    createNewTest,
     id
   } = props;
   const [editing, setEditing] = useState(false);
@@ -33,7 +34,7 @@ function CreateTest(props) {
   /* this use effect is only for development. there will be a blank test rendered and a new id created on server */
   useEffect(() => {
     if (!testObj.id) {
-      props.submitTest(testObj);
+      props.createNewTest(testObj);
     }
   }, []);
 
@@ -71,7 +72,7 @@ function CreateTest(props) {
         <h1>Test Preview</h1>
         <p>Test id: {id}</p>
         <div className='created-test'>
-          <button onClick={saveTest}>Save Changes</button>
+          <button onClick={saveTest}>Submit Test</button>
           <h2>Title: {title}</h2>
           <h4>Teacher: {creator}</h4>
           <div className='questions'>
@@ -109,7 +110,8 @@ const mapStateToProps = state => {
     testTaker: state.testReducer.testTaker,
     questions: state.testReducer.questions,
     id: state.testReducer.id,
-    testObj: state.testReducer
+    testObj: state.testReducer,
+    teacherName: state.teacherReducer.name
   };
 };
 
@@ -123,6 +125,6 @@ export default connect(
     setCreator,
     save,
     getTest,
-    submitTest
+    createNewTest
   }
 )(CreateTest);

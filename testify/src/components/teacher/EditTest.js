@@ -8,7 +8,7 @@ import {
   removeQuestion,
   setCreator,
   save,
-  submitTest,
+  createNewTest,
   getTest
 } from '../../actions';
 import QuestionTypeBuilder from '../test/QuesitonTypeBuilder';
@@ -118,6 +118,6 @@ export default connect(
     setCreator,
     save,
     getTest,
-    submitTest
+    createNewTest
   }
 )(EditTest);

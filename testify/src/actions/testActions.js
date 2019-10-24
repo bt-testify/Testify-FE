@@ -36,19 +36,21 @@ export const SET_TEST_TAKER = 'SET_TEST_TAKER';
 export const setTestTaker = testTaker => {
   return { type: SET_TEST_TAKER, payload: testTaker };
 };
-/* ===== SUBMIT TEST ========== */
-export const FAIL_SUBMIT_TEST = 'FAIL_SUBMIT_TEST';
-export const SUBMITTING_TEST = 'SUBMITTING_TEST';
-export const TEST_SUBMITTED = 'TEST_SUBMITTED';
-export const submitTest = testObj => dispatch => {
-  dispatch({ type: SUBMITTING_TEST });
+/* ===== CREATE NEW TEST ========== */
+export const CREATE_TEST_FAILED = 'CREATE_TEST_FAILED';
+export const CREATING_NEW_TEST = 'CREATING_NEW_TEST';
+export const NEW_TEST_CREATED = 'NEW_TEST_CREATED';
+/* action creator */
+export const createNewTest = testObj => dispatch => {
+  dispatch({ type: CREATING_NEW_TEST });
   axiosWithAuth()
     .post('/tests', testObj)
     .then(res => {
-      dispatch({ type: TEST_SUBMITTED, payload: res.data });
+      dispatch({ type: NEW_TEST_CREATED, payload: res.data });
     })
-    .catch(err => dispatch({ type: FAIL_SUBMIT_TEST, payload: err }));
+    .catch(err => dispatch({ type: CREATE_TEST_FAILED, payload: err }));
 };
+
 /* ======= SAVING TEST ========   */
 export const SAVING = 'SAVING';
 export const SAVE_SUCCESS = 'SAVE_SUCCESS';

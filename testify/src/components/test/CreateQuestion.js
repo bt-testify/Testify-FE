@@ -169,5 +169,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { setType, addQuestion, save, getTest, submitTest }
+  { setType, addQuestion, save, getTest }
 )(CreateQuestion);

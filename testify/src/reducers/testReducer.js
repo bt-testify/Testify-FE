@@ -7,9 +7,9 @@ import {
   SAVE_FAIL,
   SAVE_SUCCESS,
   SAVING,
-  SUBMITTING_TEST,
-  FAIL_SUBMIT_TEST,
-  TEST_SUBMITTED,
+  NEW_TEST_CREATED,
+  CREATING_NEW_TEST,
+  CREATE_TEST_FAILED,
   GETTING_TEST,
   TEST_RECEIVED,
   TEST_NOT_RECEIVED
@@ -47,7 +47,7 @@ export const testReducer = (state = initialState, action) => {
         questions: [...state.questions, action.payload]
       };
       break;
-    case TEST_SUBMITTED:
+    case NEW_TEST_CREATED:
       return (state = action.payload);
 
     case SAVING:
