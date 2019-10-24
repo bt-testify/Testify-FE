@@ -103,7 +103,8 @@ function App() {
               />
             )}
           />
-          <Route path={`/Student/TakeTest/:testid`} render={props => ( <TakeTest {...props} loggedIn={loggedIn} currentUser={currentUser} /> )}/>
+          <Route path={`/Student/TakeTest/:testid`} render={props => ( 
+          <TakeTest {...props} loggedIn={loggedIn} currentUser={currentUser} setCurrentUser={setCurrentUser} /> )}/>
         </div>
       )}
     </div>
