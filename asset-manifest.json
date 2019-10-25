@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/Front-End/static/css/main.935b728c.chunk.css",
+    "main.js": "/Front-End/static/js/main.919610a6.chunk.js",
+    "main.js.map": "/Front-End/static/js/main.919610a6.chunk.js.map",
+    "runtime-main.js": "/Front-End/static/js/runtime-main.aeba9c51.js",
+    "runtime-main.js.map": "/Front-End/static/js/runtime-main.aeba9c51.js.map",
+    "static/js/2.a74ff637.chunk.js": "/Front-End/static/js/2.a74ff637.chunk.js",
+    "static/js/2.a74ff637.chunk.js.map": "/Front-End/static/js/2.a74ff637.chunk.js.map",
+    "index.html": "/Front-End/index.html",
+    "precache-manifest.06930a0cac3a2ce3e8ff2ab41741bcf3.js": "/Front-End/precache-manifest.06930a0cac3a2ce3e8ff2ab41741bcf3.js",
+    "service-worker.js": "/Front-End/service-worker.js",
+    "static/css/main.935b728c.chunk.css.map": "/Front-End/static/css/main.935b728c.chunk.css.map",
+    "static/media/Beachprofile.jpg": "/Front-End/static/media/Beachprofile.da8d632b.jpg",
+    "static/media/Greg_cameron.png": "/Front-End/static/media/Greg_cameron.2493763e.png",
+    "static/media/Jonathan_Ferrer.png": "/Front-End/static/media/Jonathan_Ferrer.f79fd79e.png",
+    "static/media/Jordan_Miller.png": "/Front-End/static/media/Jordan_Miller.43edd390.png",
+    "static/media/Raajn_Patel.png": "/Front-End/static/media/Raajn_Patel.edb686a0.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.aeba9c51.js",
+    "static/js/2.a74ff637.chunk.js",
+    "static/css/main.935b728c.chunk.css",
+    "static/js/main.919610a6.chunk.js"
+  ]
+}
