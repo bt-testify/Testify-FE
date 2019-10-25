@@ -9,15 +9,14 @@ export default function TakeTest(props) {
   //load test here.
   useEffect(() => {
     axiosWithAuth()
-        .get(`/testById/${props.match.params.testid}`)
-        .then(res => {
+      .get(`/testById/${props.match.params.testid}`)
+      .then(res => {
         console.log('Loaded Test result: ', res.data);
         setLoadedTest(res.data);
-
-        })
-        .catch(err => {
+      })
+      .catch(err => {
         console.log('LoadedTest error: ', err);
-        });
+      });
   }, []);
 
   let [currentQuestion, setCurrentQuestion] = useState(0);
@@ -62,8 +61,7 @@ export default function TakeTest(props) {
   };
 
   useEffect(() => {
-    if(loadedTest)
-    {
+    if (loadedTest) {
       checkedCheck();
     }
   }, [loadedTest, currentQuestion]);
@@ -101,12 +99,14 @@ export default function TakeTest(props) {
         score++;
       }
     });
-    let scorePercentage = ((score / gradedAnswers.length)*100).toFixed();
+    let scorePercentage = ((score / gradedAnswers.length) * 100).toFixed();
     const today = new Date();
-    
+
     console.log(gradedAnswers);
     console.log(`Score: ${score}/${gradedAnswers.length}`);
-    console.log(`${today.getMonth() + 1}-${today.getDate()}-${today.getFullYear()}`);
+    console.log(
+      `${today.getMonth() + 1}-${today.getDate()}-${today.getFullYear()}`
+    );
 
     // built completed test
     let completedTest = {
@@ -116,7 +116,9 @@ export default function TakeTest(props) {
       answersList: answerList,
       gradedAnswers: gradedAnswers,
       scorePercentage: scorePercentage,
-      assignedDate: props.currentUser.assignedTests.find(test => {return test.id == props.match.params.testid}).assignedDate,
+      assignedDate: props.currentUser.assignedTests.find(test => {
+        return test.id == props.match.params.testid;
+      }).assignedDate,
       completedDate: `${today.getMonth() +
         1}-${today.getDate()}-${today.getFullYear()}`
     };
@@ -135,9 +137,9 @@ export default function TakeTest(props) {
 
     props.currentUser.completedTests.push(completedTest);
 
-    //update server version of the student by sending 
+    //update server version of the student by sending
     axiosWithAuth()
-      .put(`/assignedCompleted/${props.currentUser.id}`, props.currentUser)
+      .put(`/updateCompletedTests/${props.currentUser.id}`, props.currentUser)
       .then(res => {
         console.log('TakeTest.js res.data', res.data);
         props.history.push('/Student');
@@ -169,62 +171,111 @@ export default function TakeTest(props) {
         if (props.loggedIn) {
           if (props.isTeacher) {
             return <AccessDenied {...props} />;
-          } 
-          else {
-            if (loadedTest){
+          } else {
+            if (loadedTest) {
               return (
                 <div>
-                  <h2>You are taking: {loadedTest.title} #{props.match.params.testid}</h2>
+                  <h2>
+                    You are taking: {loadedTest.title} #
+                    {props.match.params.testid}
+                  </h2>
                   <h4>By {loadedTest.creator}</h4>
-                  <h5>Question: {currentQuestion + 1}/{loadedTest.questions.length}</h5>
+                  <h5>
+                    Question: {currentQuestion + 1}/
+                    {loadedTest.questions.length}
+                  </h5>
                   {(() => {
-                    if (loadedTest.questions[currentQuestion].type ==='multiple-choice') {
+                    if (
+                      loadedTest.questions[currentQuestion].type ===
+                      'multiple-choice'
+                    ) {
                       return (
                         <div>
                           {/* <p>I'm a multiple choice!!</p> */}
-                          <p>{loadedTest.questions[currentQuestion].question}</p>
+                          <p>
+                            {loadedTest.questions[currentQuestion].question}
+                          </p>
                           <form name='form1'>
                             {loadedTest.questions[currentQuestion].options.map(
                               function(opt, index) {
                                 // console.log('CQ: ', currentQuestion, 'Ans', answerList[currentQuestion], 'OPT: ', opt, 'INDEX: ', index);
-                                return (<p><input type='radio' name='first' value={opt} onChange={handleChange} checked={isChecked[index]} /> {opt} </p>);
+                                return (
+                                  <p>
+                                    <input
+                                      type='radio'
+                                      name='first'
+                                      value={opt}
+                                      onChange={handleChange}
+                                      checked={isChecked[index]}
+                                    />{' '}
+                                    {opt}{' '}
+                                  </p>
+                                );
                               }
                             )}
                           </form>
                         </div>
                       );
                     } else if (
-                      loadedTest.questions[currentQuestion].type === 'true-false'
+                      loadedTest.questions[currentQuestion].type ===
+                      'true-false'
                     ) {
                       return (
                         <div>
                           {/* <p>I'm a true-false!!</p> */}
-                          <p>{loadedTest.questions[currentQuestion].question}</p>
+                          <p>
+                            {loadedTest.questions[currentQuestion].question}
+                          </p>
                           <form name='form2'>
-                            {loadedTest.questions[currentQuestion].options.map((opt, index) => {
+                            {loadedTest.questions[currentQuestion].options.map(
+                              (opt, index) => {
                                 return (
-                                  <p> <input type='radio' name='second' value={opt} onChange={handleChange} checked={isChecked[index]} /> {opt}</p>);
+                                  <p>
+                                    {' '}
+                                    <input
+                                      type='radio'
+                                      name='second'
+                                      value={opt}
+                                      onChange={handleChange}
+                                      checked={isChecked[index]}
+                                    />{' '}
+                                    {opt}
+                                  </p>
+                                );
                               }
                             )}
                           </form>
                         </div>
                       );
                     } else if (
-                      loadedTest.questions[currentQuestion].type === 'short-answer'
+                      loadedTest.questions[currentQuestion].type ===
+                      'short-answer'
                     ) {
                       return (
                         <div>
                           {/* <p>I'm a short-answer!!</p> */}
-                          <p>{loadedTest.questions[currentQuestion].question}</p>
+                          <p>
+                            {loadedTest.questions[currentQuestion].question}
+                          </p>
                           <form>
-                            <input type='text' name='gender' onChange={handleChange} placeholder={answerList[currentQuestion] || 'Enter your answer here.'}/>
+                            <input
+                              type='text'
+                              name='gender'
+                              onChange={handleChange}
+                              placeholder={
+                                answerList[currentQuestion] ||
+                                'Enter your answer here.'
+                              }
+                            />
                           </form>
                         </div>
-                      ); } })()}
-  
+                      );
+                    }
+                  })()}
+
                   <button onClick={buttonDecFunc}>Previous</button>
                   <button onClick={buttonIncFunc}>Next</button>
-  
+
                   {(() => {
                     if (currentQuestion + 1 === loadedTest.questions.length) {
                       return <button onClick={validateFunc}>Submit</button>;
@@ -234,9 +285,7 @@ export default function TakeTest(props) {
               );
             }
           }
-        } 
-        
-        else {
+        } else {
           return <AccessDenied {...props} />;
         }
       })()}

@@ -19,7 +19,7 @@ export const SAVE_TEACHER_FAIL = 'SAVE_TEACHER_FAIL';
 export const saveTeacher = (teacherId, teacherObj) => dispatch => {
   dispatch({ type: SAVING_TEACHER });
   axiosWithAuth()
-    .put(`/users/${teacherId}`, teacherObj)
+    .put(`/updateClasses/${teacherId}`, teacherObj)
     .then(res => {
       dispatch({ type: SAVE_TEACHER_SUCCESS, payload: res.data });
       console.log('testActions.js SAVE_TEACHER res:', res);

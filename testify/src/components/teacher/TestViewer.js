@@ -99,7 +99,9 @@ const TestViewer = props => {
       console.log('SelectedClass, classes ', selectedClass, classes);
       setSubmitTrue(false);
       setSubj(null);
-    }
+      setAssigning(false);
+      props.saveTeacher(teacherObj.id, teacherObj);
+    } else alert('This test is already assigned to this class');
   };
 
   /* addAssignmentToClass(assignment, klass.subject); */
