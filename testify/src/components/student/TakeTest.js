@@ -20,42 +20,6 @@ export default function TakeTest(props) {
         });
   }, []);
 
-  // let loadedTest = {
-  //   score: 0,
-  //   isEditing: false,
-  //   id: 0,
-  //   creator: 'Mrs. Mathews',
-  //   title: 'Math Test',
-  //   testTaker: '',
-  //   questions: [
-  //     {
-  //       id: 1,
-  //       correct: false,
-  //       question: "What's 6X6 ?",
-  //       type: 'multiple-choice',
-  //       options: [36, 34, 26, 52],
-  //       answer: 36
-  //     },
-  //     {
-  //       id: 2,
-  //       correct: false,
-  //       question: 'True or False, 6X6=36?',
-  //       type: 'true-false',
-  //       options: ['T', 'F'],
-  //       answer: 'T'
-  //     },
-  //     {
-  //       id: 3,
-  //       correct: false,
-  //       question: 'What is the order of operations?',
-  //       type: 'short-answer',
-  //       options: 'n/a',
-  //       answer: 'parentheses, exponents, multiply, divide, add, subtract'
-  //     }
-  //   ]
-  // };
-
-
   let [currentQuestion, setCurrentQuestion] = useState(0);
   let [answerList, setAnswerList] = useState([]);
   let [gradedAnswers, setAnswerCorrect] = useState([]);
