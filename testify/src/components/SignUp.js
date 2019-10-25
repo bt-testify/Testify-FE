@@ -34,6 +34,7 @@ const SignUpForm = ({ setLoggedIn, populateUser, history, values, touched, error
     }
     initial = false;
   }, [status]);
+  
   useEffect(() => {
     //axios get reduced teachers array here, then search by name to add to student object
     axiosWithAuth()

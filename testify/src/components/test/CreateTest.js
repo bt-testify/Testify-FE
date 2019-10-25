@@ -14,6 +14,7 @@ import {
 } from '../../actions';
 import QuestionTypeBuilder from './QuesitonTypeBuilder';
 import CreateQuestion from './CreateQuestion';
+import EditQuestion from './EditQuestion';
 
 function CreateTest(props) {
   console.log('CreateTest.js props:', props);
@@ -28,12 +29,13 @@ function CreateTest(props) {
     save,
     getTest,
     createNewTest,
+    removeQuestion,
     id
   } = props;
   const [editing, setEditing] = useState(false);
   const [editingId, setEditingId] = useState('');
   const [clearingFiels, setClearingFields] = useState(false);
-
+  console.log('teacherName:', teacherName);
   /* this use effect is only for development. there will be a blank test rendered and a new id created on server */
 
   useEffect(() => {
@@ -50,6 +52,10 @@ function CreateTest(props) {
     props.history.push('/Teacher/test-bank');
   };
 
+  const persistTitle = () => {
+    save(testObj.id, testObj);
+  };
+
   return (
     <div className='create-test-container'>
       <div className='creator-forms-container'>
@@ -58,6 +64,7 @@ function CreateTest(props) {
           <input
             onChange={e => {
               setTitle(e.target.value);
+              persistTitle();
             }}
             type='text'
             placeholder='Title'
@@ -66,6 +73,7 @@ function CreateTest(props) {
             onChange={e => {
               setCreator(e.target.value);
             }}
+            value={creator}
             type='text'
             placeholder='Teacher'
           />
@@ -81,7 +89,7 @@ function CreateTest(props) {
         <div className='created-test'>
           <button onClick={saveTest}>Submit Test</button>
           <h2>Title: {title}</h2>
-          <h4>Teacher: {creator}</h4>
+          <h3>Teacher: {creator}</h3>
           <div className='questions'>
             {questions.map((question, index) => {
               return (
@@ -92,13 +100,15 @@ function CreateTest(props) {
                   <QuestionTypeBuilder question={question} />
                   {/* For editing */}
                   <p>answer: {question.answer}</p>
-                  {editing && editingId === index && <CreateQuestion />}
-                  <button
+                  {editing && editingId === index && <EditQuestion />}
+                  {/*  <button
                     onClick={() => (setEditing(!editing), setEditingId(index))}
                   >
                     Edit
+                  </button> */}
+                  <button onClick={() => removeQuestion(question.question)}>
+                    Delete
                   </button>
-                  <button>Delete</button>
                 </div>
               );
             })}

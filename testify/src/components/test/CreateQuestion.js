@@ -4,7 +4,7 @@ import { setType, addQuestion, save, getTest, submitTest } from '../../actions';
 
 const initialState = {
   isEditing: false,
-  id: '',
+  id: Date.now(),
   correct: false,
   question: '',
   type: 'Choose Value',
@@ -15,7 +15,7 @@ const initialState = {
 
 function CreateQuestion(props) {
   /* console.log('CreateQuestions.js props', props); */
-  const { addQuestion, save, testObj, getTest } = props;
+  const { addQuestion, save, testObj, getTest, testId } = props;
   const [firstSubmit, setFirstSubmit] = useState(true);
   const [newQuestion, setNewQuestion] = useState(initialState);
   const [choice, setChoice] = useState('');
@@ -23,7 +23,7 @@ function CreateQuestion(props) {
   const [callSave, setCallSave] = useState(false);
 
   useEffect(() => {
-    props.save(testObj.id, testObj);
+    props.save(testId, testObj);
   }, [callSave]);
   console.log('CreateQuestion.js testObj', testObj, firstSubmit);
 
@@ -32,8 +32,18 @@ function CreateQuestion(props) {
  
   console.log('CreateQuestion.js addChoice options', newQuestion.options); */
   /* console.log('CreateQuestion.js newQuestion.answer ', newQuestion.options); */
-  /* console.log('CreateQuestion.js newQuestion: ', newQuestion); */
+  /*  */
   console.log('CreateQuestion.js testObj:', testObj);
+  console.log('CreateQuestion.js newQuestion: ', newQuestion);
+
+  /* useEffect(() => {
+    if (newQuestion.type === 'true-false') {
+      setNewQuestion({
+        ...newQuestion,
+        options: ['T', 'F']
+      });
+    }
+  }, [newQuestion]); */
 
   const handleChanges = e => {
     setNewQuestion({
@@ -63,6 +73,17 @@ function CreateQuestion(props) {
     setChoice('');
   };
 
+  const setTrueFalseChoices = e => {
+    e.preventDefault();
+    if (newQuestion.type === 'true-false') {
+      setNewQuestion({
+        ...newQuestion,
+        options: ['T', 'F'],
+        answer: e.target.name
+      });
+    }
+  };
+
   const removeChoice = op => {
     setNewQuestion({
       ...newQuestion,
@@ -72,23 +93,43 @@ function CreateQuestion(props) {
 
   const submitQuestion = e => {
     e.preventDefault();
-    if (
-      newQuestion.question !== '' &&
-      newQuestion.options.length !== 0 &&
-      newQuestion.answer !== ''
-    ) {
-      addQuestion(newQuestion);
-      setCallSave(!callSave);
-      setNewQuestion({
-        isEditing: false,
-        id: '',
-        correct: false,
-        question: '',
-        type: '',
-        options: [],
-        answer: '',
-        value: ''
-      });
+    if (newQuestion.type === 'multiple-choice') {
+      if (
+        newQuestion.question !== '' &&
+        newQuestion.options.length !== 0 &&
+        newQuestion.answer !== ''
+      ) {
+        addQuestion(newQuestion);
+        setCallSave(!callSave);
+        setNewQuestion({
+          isEditing: false,
+          id: '',
+          correct: false,
+          question: '',
+          type: '',
+          options: [],
+          answer: '',
+          value: ''
+        });
+      } else
+        alert(
+          "Make sure all fields are filled in and you've selected the correct answer!"
+        );
+    } else if (newQuestion.type === 'true-false') {
+      if (newQuestion.question !== '' && newQuestion.answer !== '') {
+        addQuestion(newQuestion);
+        setCallSave(!callSave);
+        /* if (newQuestion.type === 'true-false') {
+          setNewQuestion({
+            ...newQuestion,
+            options: ['T', 'F']
+          });
+        } */
+        setNewQuestion(initialState);
+      } else
+        alert(
+          "Make sure all fields are filled in and you've selected the correct answer!"
+        );
     } else
       alert(
         "Make sure all fields are filled in and you've selected the correct answer!"
@@ -108,7 +149,7 @@ function CreateQuestion(props) {
           <option value='true-false'>true-false</option>
           <option value='short-answer'>short answer</option>
         </select>
-
+        {/* ======= MULTIPLE CHOICE ============= */}
         {newQuestion.type === 'multiple-choice' && (
           <>
             <textarea
@@ -151,9 +192,36 @@ function CreateQuestion(props) {
             </div>
           </>
         )}
-        {/* !!! IMPORTANT we need a server to actually save the uptdated test with the new question, otherwise every time the page re-renders,
-          questions that are not hard-coded will be lost !
-        */}
+        {/* ===== TRUE FALSE =========  */}
+        {newQuestion.type === 'true-false' && (
+          <div className='true-false-question'>
+            <textarea
+              value={newQuestion.question}
+              name='question'
+              onChange={handleChanges}
+              type='text'
+              placeholder='Write your question'
+            />
+            <div>
+              <p>Check the correct answer: </p>
+              <label htmlFor='true'>True</label>
+              <input
+                onClick={setTrueFalseChoices}
+                value='T'
+                name='T'
+                type='checkbox'
+              />
+              <label htmlFor='false'>False</label>
+              <input
+                onClick={setTrueFalseChoices}
+                name='F'
+                value='F'
+                type='checkbox'
+              />
+            </div>
+          </div>
+        )}
+
         <button type='submit' onClick={submitQuestion}>
           Submit Question
         </button>
@@ -165,7 +233,8 @@ function CreateQuestion(props) {
 const mapStateToProps = state => {
   return {
     questions: state.testReducer.questions,
-    testId: state.testReducer.id
+    testId: state.testReducer.id,
+    testObj: state.testReducer.testObj
   };
 };
 

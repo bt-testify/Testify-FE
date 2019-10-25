@@ -8,7 +8,7 @@ import Landing from './components/landing/Landing.js';
 import About from './components/landing/About.js';
 import SignUp from './components/SignUp.js';
 import TeacherLanding from './components/teacher/TeacherLanding.js';
-import StudentLanding from './components/student/StudentLanding.js';
+import StudentDashboard from './components/student/StudentDashboard.js';
 import Login from './components/Login';
 import CreateTest from './components/test/CreateTest';
 import TestBank from './components/teacher/TestBank';
@@ -69,7 +69,7 @@ function App() {
             exact
             path='/Student'
             render={props => (
-              <StudentLanding
+              <StudentDashboard
                 {...props}
                 currentUser={currentUser}
                 loggedIn={loggedIn}

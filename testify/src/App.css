@@ -103,3 +103,24 @@ button {
   justify-content: space-around;
   text-decoration: none;
 }
+
+.viewer-btn {
+  border: 2px solid black;
+  width: 30%;
+  margin: 0 auto;
+}
+
+.test-viewer-options-btns {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  width: 50%;
+  border: 2px solid blue;
+}
+
+.assign-container {
+  border: 2px solid black;
+  height: fit-content;
+  box-shadow: black;
+  width: 30%;
+}

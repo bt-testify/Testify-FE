@@ -1,4 +1,13 @@
-export { SET_USER, setUser } from './teacherActions';
+export {
+  SET_USER,
+  setUser,
+  ASSIGN_STUDENT_TO_CLASS,
+  assginStudentToClass,
+  SAVING_TEACHER,
+  SAVE_TEACHER_SUCCESS,
+  SAVE_TEACHER_FAIL,
+  saveTeacher
+} from './teacherActions';
 
 export {} from './studentActions';
 export {
@@ -25,7 +34,11 @@ export {
   CREATING_NEW_TEST,
   NEW_TEST_CREATED,
   CREATE_TEST_FAILED,
-  CLEAR_FIELDS
+  CLEAR_FIELDS,
+  DELETEING_TEST,
+  TEST_DELETED,
+  deleteTest,
+  CONFIRM_DELETE_TEST
 } from './testActions';
 export {
   addOption,

@@ -27,6 +27,7 @@ function EditTest(props) {
     save,
     getTest,
     submitTest,
+    removeQuestion,
     id
   } = props;
   const [editing, setEditing] = useState(false);
@@ -67,11 +68,12 @@ function EditTest(props) {
 
       {/* ======= PREVIEW ========= */}
       <div className='test-preview'>
+        <h3>Teacher: {creator}</h3>
         <p>Test id: {id}</p>
         <div className='created-test'>
           <button onClick={saveTest}>Save Changes</button>
           <h2>Title: {title}</h2>
-          <h4>Teacher: {creator}</h4>
+
           <div className='questions'>
             {questions.map((question, index) => {
               return (
@@ -88,7 +90,9 @@ function EditTest(props) {
                   >
                     Edit
                   </button>
-                  <button>Delete</button>
+                  <button onClick={() => removeQuestion(question.question)}>
+                    Delete
+                  </button>
                 </div>
               );
             })}
