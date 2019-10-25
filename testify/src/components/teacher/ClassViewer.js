@@ -43,7 +43,7 @@ const ClassViewer = props => {
         <ul>
           {currentClass.testsAssigned.map(test => (
             <li key={test.title}>
-              <h4>{test.title}</h4>
+              <h3>{test.title}</h3>
               <p>Remove student from this class</p>
               <p>Date assigned: {test.assignedDate}</p>
               <p>Due: {test.dueDate}</p>
@@ -52,6 +52,7 @@ const ClassViewer = props => {
         </ul>
       </div>
       <div className='students-list'>
+        <h3>Students in this Class: </h3>
         {students.map(student => (
           <div key={student.id} className='class-viewer-student'>
             <h4>Name: {student.name}</h4>

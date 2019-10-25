@@ -53,7 +53,7 @@ const StudentRoster = props => {
             </a>
             <p>GPA: {student.gpa}</p>
             {openDropDown && (
-              <div className='class-drop-down'>
+              <div className='class-selector'>
                 {classes.map(klass => (
                   <>
                     <label htmlFor={klass.subject}>{klass.subject}</label>

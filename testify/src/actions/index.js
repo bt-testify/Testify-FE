@@ -2,7 +2,11 @@ export {
   SET_USER,
   setUser,
   ASSIGN_STUDENT_TO_CLASS,
-  assginStudentToClass
+  assginStudentToClass,
+  SAVING_TEACHER,
+  SAVE_TEACHER_SUCCESS,
+  SAVE_TEACHER_FAIL,
+  saveTeacher
 } from './teacherActions';
 
 export {} from './studentActions';

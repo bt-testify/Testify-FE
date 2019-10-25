@@ -95,10 +95,6 @@ export const testReducer = (state = initialState, action) => {
       alert('SETTING TEST TAKER');
       break;
 
-    case CONFIRM_DELETE_TEST:
-      window.confirm('Are you sure you want to delete this test?');
-      break;
-
     default:
       return state;
   }

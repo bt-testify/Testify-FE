@@ -89,7 +89,7 @@ function CreateTest(props) {
         <div className='created-test'>
           <button onClick={saveTest}>Submit Test</button>
           <h2>Title: {title}</h2>
-          <h4>Teacher: {creator}</h4>
+          <h3>Teacher: {creator}</h3>
           <div className='questions'>
             {questions.map((question, index) => {
               return (
@@ -101,11 +101,11 @@ function CreateTest(props) {
                   {/* For editing */}
                   <p>answer: {question.answer}</p>
                   {editing && editingId === index && <EditQuestion />}
-                  <button
+                  {/*  <button
                     onClick={() => (setEditing(!editing), setEditingId(index))}
                   >
                     Edit
-                  </button>
+                  </button> */}
                   <button onClick={() => removeQuestion(question.question)}>
                     Delete
                   </button>
