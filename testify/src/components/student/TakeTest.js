@@ -167,7 +167,6 @@ export default function TakeTest(props) {
   return (
     <section className='parentComponent'>
       {(() => {
-        if (props.loggedIn) {
           if (props.isTeacher) {
             return <AccessDenied {...props} />;
           } else {
@@ -288,9 +287,6 @@ export default function TakeTest(props) {
               );
             }
           }
-        } else {
-          return <AccessDenied {...props} />;
-        }
       })()}
     </section>
   );

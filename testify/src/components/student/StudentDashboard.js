@@ -7,7 +7,7 @@ import CompletedTests from './CompletedTests.js';
 import { axiosWithAuth } from '../../utils/axiosWithAuth';
 
 export default function StudentDashboard(props) {
-
+    console.log('Student Dashboard props', props);
     const [classData, setClassData] = useState();
     const [reducedStudents, setReducedStudents] = useState(); //this is to show names of students assigned to class if I write that component
     
@@ -79,7 +79,6 @@ export default function StudentDashboard(props) {
         <h2 className='initial'>Student Dashboard</h2>
         <h3 className='initial'>Make component for showing what classes the student is in and their grade for that class <br/> (average of student scores to tests assigned to class)</h3>
         {(() => {
-            if(props.loggedIn){
                 if (props.currentUser.isTeacher){
                     return <AccessDenied {...props}/>
                 }
@@ -91,10 +90,6 @@ export default function StudentDashboard(props) {
                         <CompletedTests {...props} currentUser={props.currentUser} />
                         </div>)
                 }
-            }
-            else{
-                return <AccessDenied {...props}/>
-            }
         })()} 
         </div>
     )

@@ -21,7 +21,12 @@ export default function AccessDenied(props) {
               </div>
             );
           }
-        } else {
+        } 
+        else {
+          alert(
+            "You must be logged in to access this page. Redirecting you now."
+          );
+          props.history.push('/Login');
           return (
             <div>
               <h1>Access Denied.</h1>
