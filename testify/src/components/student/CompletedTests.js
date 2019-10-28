@@ -17,8 +17,8 @@ export default function CompletedTests(props) {
       };
 
     return (
-        <div>
-            <h1 className='initial'>Completed Tests</h1>
+        <div className='cardComponent'>
+            <h1>Completed Tests</h1>
             
             {/* Render pagination buttons only if student has more than 5 completed tests */}
             {props.currentUser.completedTests.length > 5 &&

@@ -75,7 +75,7 @@ export default function StudentDashboard(props) {
     }, [classData])
 
     return (
-        <div>
+        <div className='parentComponent'>
         <h2 className='initial'>Student Dashboard</h2>
         <h3 className='initial'>Make component for showing what classes the student is in and their grade for that class <br/> (average of student scores to tests assigned to class)</h3>
         {(() => {

@@ -15,8 +15,8 @@ const [currentPage, setCurrentPage] = useState(0)
       };
 
     return (
-        <div className='pendingTestsDiv'>
-        <h1 className='initial'>Assigned Tests</h1>
+        <div className='cardComponent'>
+        <h1>Assigned Tests</h1>
        
         {/* Render pagination buttons only if student has more than 5 assigned tests */}
         {props.currentUser.assignedTests.length > 5 &&

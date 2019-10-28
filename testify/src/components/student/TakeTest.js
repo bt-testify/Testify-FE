@@ -165,8 +165,7 @@ export default function TakeTest(props) {
   };
 
   return (
-    <div>
-      <h1 className='initial'>Take Test</h1>
+    <section className='parentComponent'>
       {(() => {
         if (props.loggedIn) {
           if (props.isTeacher) {
@@ -175,112 +174,116 @@ export default function TakeTest(props) {
             if (loadedTest) {
               return (
                 <div>
-                  <h2>
-                    You are taking: {loadedTest.title} #
-                    {props.match.params.testid}
-                  </h2>
-                  <h4>By {loadedTest.creator}</h4>
-                  <h5>
-                    Question: {currentQuestion + 1}/
-                    {loadedTest.questions.length}
-                  </h5>
-                  {(() => {
-                    if (
-                      loadedTest.questions[currentQuestion].type ===
-                      'multiple-choice'
-                    ) {
-                      return (
-                        <div>
-                          {/* <p>I'm a multiple choice!!</p> */}
-                          <p>
-                            {loadedTest.questions[currentQuestion].question}
-                          </p>
-                          <form name='form1'>
-                            {loadedTest.questions[currentQuestion].options.map(
-                              function(opt, index) {
-                                // console.log('CQ: ', currentQuestion, 'Ans', answerList[currentQuestion], 'OPT: ', opt, 'INDEX: ', index);
-                                return (
-                                  <p>
-                                    <input
-                                      type='radio'
-                                      name='first'
-                                      value={opt}
-                                      onChange={handleChange}
-                                      checked={isChecked[index]}
-                                    />{' '}
-                                    {opt}{' '}
-                                  </p>
-                                );
-                              }
-                            )}
-                          </form>
-                        </div>
-                      );
-                    } else if (
-                      loadedTest.questions[currentQuestion].type ===
-                      'true-false'
-                    ) {
-                      return (
-                        <div>
-                          {/* <p>I'm a true-false!!</p> */}
-                          <p>
-                            {loadedTest.questions[currentQuestion].question}
-                          </p>
-                          <form name='form2'>
-                            {loadedTest.questions[currentQuestion].options.map(
-                              (opt, index) => {
-                                return (
-                                  <p>
-                                    {' '}
-                                    <input
-                                      type='radio'
-                                      name='second'
-                                      value={opt}
-                                      onChange={handleChange}
-                                      checked={isChecked[index]}
-                                    />{' '}
-                                    {opt}
-                                  </p>
-                                );
-                              }
-                            )}
-                          </form>
-                        </div>
-                      );
-                    } else if (
-                      loadedTest.questions[currentQuestion].type ===
-                      'short-answer'
-                    ) {
-                      return (
-                        <div>
-                          {/* <p>I'm a short-answer!!</p> */}
-                          <p>
-                            {loadedTest.questions[currentQuestion].question}
-                          </p>
-                          <form>
-                            <input
-                              type='text'
-                              name='gender'
-                              onChange={handleChange}
-                              placeholder={
-                                answerList[currentQuestion] ||
-                                'Enter your answer here.'
-                              }
-                            />
-                          </form>
-                        </div>
-                      );
-                    }
-                  })()}
+                  <div className='cardComponent'> {/* Title */}
+                    <h3>
+                      You are taking: {loadedTest.title} #
+                      {props.match.params.testid}
+                    </h3>
+                    <h4>By {loadedTest.creator}</h4>
+                    <h5>
+                      Question: {currentQuestion + 1}/
+                      {loadedTest.questions.length}
+                    </h5>
+                  </div>
+                  <div className='cardComponent'> {/* Questions */}
+                    {(() => {
+                      if (
+                        loadedTest.questions[currentQuestion].type ===
+                        'multiple-choice'
+                      ) {
+                        return (
+                          <div>
+                            {/* <p>I'm a multiple choice!!</p> */}
+                            <p>
+                              {loadedTest.questions[currentQuestion].question}
+                            </p>
+                            <form name='form1'>
+                              {loadedTest.questions[currentQuestion].options.map(
+                                function(opt, index) {
+                                  // console.log('CQ: ', currentQuestion, 'Ans', answerList[currentQuestion], 'OPT: ', opt, 'INDEX: ', index);
+                                  return (
+                                    <p>
+                                      <input
+                                        type='radio'
+                                        name='first'
+                                        value={opt}
+                                        onChange={handleChange}
+                                        checked={isChecked[index]}
+                                      />{' '}
+                                      {opt}{' '}
+                                    </p>
+                                  );
+                                }
+                              )}
+                            </form>
+                          </div>
+                        );
+                      } else if (
+                        loadedTest.questions[currentQuestion].type ===
+                        'true-false'
+                      ) {
+                        return (
+                          <div>
+                            {/* <p>I'm a true-false!!</p> */}
+                            <p>
+                              {loadedTest.questions[currentQuestion].question}
+                            </p>
+                            <form name='form2'>
+                              {loadedTest.questions[currentQuestion].options.map(
+                                (opt, index) => {
+                                  return (
+                                    <p>
+                                      {' '}
+                                      <input
+                                        type='radio'
+                                        name='second'
+                                        value={opt}
+                                        onChange={handleChange}
+                                        checked={isChecked[index]}
+                                      />{' '}
+                                      {opt}
+                                    </p>
+                                  );
+                                }
+                              )}
+                            </form>
+                          </div>
+                        );
+                      } else if (
+                        loadedTest.questions[currentQuestion].type ===
+                        'short-answer'
+                      ) {
+                        return (
+                          <div>
+                            {/* <p>I'm a short-answer!!</p> */}
+                            <p>
+                              {loadedTest.questions[currentQuestion].question}
+                            </p>
+                            <form>
+                              <input
+                                type='text'
+                                name='gender'
+                                onChange={handleChange}
+                                placeholder={
+                                  answerList[currentQuestion] ||
+                                  'Enter your answer here.'
+                                }
+                              />
+                            </form>
+                          </div>
+                        );
+                      }
+                    })()}
 
-                  <button onClick={buttonDecFunc}>Previous</button>
-                  <button onClick={buttonIncFunc}>Next</button>
+                    <button onClick={buttonDecFunc}>Previous</button>
+                    <button onClick={buttonIncFunc}>Next</button>
 
-                  {(() => {
-                    if (currentQuestion + 1 === loadedTest.questions.length) {
-                      return <button onClick={validateFunc}>Submit</button>;
-                    }
-                  })()}
+                    {(() => {
+                      if (currentQuestion + 1 === loadedTest.questions.length) {
+                        return <button onClick={validateFunc}>Submit</button>;
+                      }
+                    })()}
+                  </div>
                 </div>
               );
             }
@@ -289,7 +292,7 @@ export default function TakeTest(props) {
           return <AccessDenied {...props} />;
         }
       })()}
-    </div>
+    </section>
   );
 }
 
