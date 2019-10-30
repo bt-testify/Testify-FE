@@ -22,8 +22,16 @@ const [currentPage, setCurrentPage] = useState(0)
         {props.currentUser.assignedTests.length > 5 &&
             <><button onClick={buttonDecFunc}>Previous</button><button onClick={buttonIncFunc}>Next</button></>
         }
-       
-        {props.currentUser &&
+
+        {/* {(()=>{
+            if (props.currentUser){
+                if(props.currentUser.assignedTests.Length === 0){
+                    return <p>You're up to date! No assigned tests.</p>
+                }
+            }
+        })()} */} 
+        {/* above doenst work- assignedtests still has them assigned, its just not showing because they are completed. work a bool into the loop or something. */}
+        {props.currentUser && 
         props.currentUser.assignedTests.map((test, index)=>{
             if ((index >= currentPage*5) && (index < ((currentPage+1)*5))){
                 console.log('index: ', index);

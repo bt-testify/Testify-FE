@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 import { connect } from 'react-redux';
 import { setUser } from '../actions';
+import { isEmptyChildren } from 'formik';
 
 const Login = props => {
   /* ==== Will use this for login when server set up ===== */
@@ -10,6 +11,17 @@ const Login = props => {
     username: '',
     password: ''
   });
+
+  useEffect(() => {
+    // if (Object.keys(props.currentUser).length) --this is checking if object is null by checking how many keys it has. 
+    //PITA but simpler things you would expect to work dont. yay javascript!
+    if (Object.keys(props.currentUser).length && props.currentUser.isTeacher){
+      props.history.push('/Teacher');
+    }
+    else if (Object.keys(props.currentUser).length && !props.currentUser.isTeacher){
+      props.history.push('/Student');
+    }
+  }, [props.loggedIn])
 
   console.log('Login.js credentials: ', credentials);
   const handleChange = e => {
@@ -24,11 +36,9 @@ const Login = props => {
       .then(res => {
         localStorage.setItem('token', res.data.payload);
         if (res.data.user.isTeacher) {
-          props.history.push('/Teacher');
           props.populateUser(res.data.user);
           props.setUser(res.data.user);
         } else {
-          props.history.push('/Student');
           props.populateUser(res.data.user);
           props.setUser(res.data.user);
         }

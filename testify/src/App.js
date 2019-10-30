@@ -53,7 +53,9 @@ function App() {
         render={props => (
           <Login
             {...props}
+            currentUser={currentUser}
             populateUser={populateUser}
+            loggedIn={loggedIn}
             setLoggedIn={setLoggedIn}
           />
         )}
