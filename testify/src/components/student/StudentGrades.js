@@ -22,8 +22,8 @@ export default function StudentGrades() {
 
 
     return (
-        <div>
-            <h1 className='initial'>Student Grades</h1>
+        <div className='cardComponent'>
+            <h1>Student Grades</h1>
             <p>You have an average score of {gpa.toFixed()}% on the {dummyTests.length} tests you have taken. Nice!</p>
         </div>
     )

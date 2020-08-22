@@ -176,6 +176,17 @@ p {
     width: 95%;
   }
 }
+.parentComponent {
+  background-color: lightslategrey;
+  border: 3px solid black;
+}
+.cardComponent {
+  background-color: lightgrey;
+  border: 1px solid white;
+  margin: 20px auto;
+  padding: 2%;
+  width: 80%;
+}
 .mainheader {
   display: flex;
   flex-direction: row;

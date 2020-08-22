@@ -17,6 +17,7 @@ import ClassViewer from './components/teacher/ClassViewer';
 import TestViewer from './components/teacher/TestViewer';
 import TakeTest from './components/student/TakeTest.js';
 import StudentRoster from './components/teacher/StudentRoster';
+import AccessDenied from './components/AccessDenied.js';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -52,7 +53,9 @@ function App() {
         render={props => (
           <Login
             {...props}
+            currentUser={currentUser}
             populateUser={populateUser}
+            loggedIn={loggedIn}
             setLoggedIn={setLoggedIn}
           />
         )}
@@ -142,6 +145,15 @@ function App() {
             path={`/Teacher/class-viewer/:id/:id`}
             render={props => <ClassViewer {...props} />}
           />
+        </div>
+      )}
+      {!loggedIn && (
+        <div>
+          <Route path='/Student' render={props => <AccessDenied {...props} />} />
+          <Route path='/Teacher' render={props => <AccessDenied {...props} />} />
+          <Route path='/Student/*' render={props => <AccessDenied {...props} />} />
+          <Route path='/TakeTest' render={props => <AccessDenied {...props} />} />
+          <Route path='/TakeTest/*' render={props => <AccessDenied {...props} />} />
         </div>
       )}
     </div>
