@@ -1,0 +1,66 @@
+// General Styles
+* {
+    box-sizing: border-box;
+  }
+  
+  html {
+    font-size: 62.5%;
+  }
+  
+  html, body {
+    font-family: @font;
+    color: @text-color;
+    
+  }
+  
+  h1, h2, h3, h4, h5 {
+    font-family:@font;
+    color:@text-color ;
+  }
+  
+  h2 {
+    font-size: 3.2vw;
+  }
+  
+  h3 {
+    font-size: 2.8vw;
+  }
+  
+  p {
+    font-size: 1.6rem;
+    line-height: 1.4;
+    // box-shadow: @insetshadow;
+    @media @mobile{
+      font-size: 2rem;
+    }
+  }
+  
+  .container {
+    // max-width: 800px;
+    width: 100%;
+    margin: 0 auto; 
+    
+    
+    @media @mobile{
+      max-width: 500px;
+      width: 95%;
+    }
+
+    @media @tablet{
+      max-width: 800px;
+      width: 95%;
+    }
+  }
+
+  .parentComponent{
+    background-color: lightslategrey;
+    border: 3px solid black;
+  }
+
+  .cardComponent{
+    background-color: lightgrey;
+    border: 1px solid white;
+    margin: 20px auto;
+    padding: 2%;
+    width: 80%;
+  }
